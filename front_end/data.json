@@ -5,18 +5,19 @@
 	"candidats" : [
 		{
 		"nom" : "Adam",
-		"image" : "candidats_pictures/adam.jpg",
-		"classement" : 1
+		"image" : "candidats_pictures/adam.jpg"
 		},
 		{
 		"nom" : "Madame",
-		"image" : "candidats_pictures/madame.jpg",
-		"classement" : 2
+		"image" : "candidats_pictures/madame.jpg"
 		},
 		{
 		"nom" : "Moiselle",
-		"image" : "candidats_pictures/moiselle.jpg",
-		"classement" : 3
+		"image" : "candidats_pictures/moiselle.jpg"
+		},
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	},
@@ -26,8 +27,7 @@
 	"candidats" : [
 		{
 		"nom" : "Nick",
-		"image" : "candidats_pictures/Nick.gif",
-		"classement" : 1
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	},
@@ -37,8 +37,7 @@
 	"candidats" : [
 		{
 		"nom" : "Nick",
-		"image" : "candidats_pictures/Nick.gif",
-		"classement" : 1
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	},
@@ -48,8 +47,7 @@
 	"candidats" : [
 		{
 		"nom" : "Nick",
-		"image" : "candidats_pictures/Nick.gif",
-		"classement" : 1
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	},
@@ -59,8 +57,7 @@
 	"candidats" : [
 		{
 		"nom" : "Nick",
-		"image" : "candidats_pictures/Nick.gif",
-		"classement" : 1
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	},
@@ -70,8 +67,7 @@
 	"candidats" : [
 		{
 		"nom" : "Nick",
-		"image" : "candidats_pictures/Nick.gif",
-		"classement" : 1
+		"image" : "candidats_pictures/Nick.gif"
 		}
 	]
 	}

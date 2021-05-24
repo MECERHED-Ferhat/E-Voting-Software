@@ -16,6 +16,9 @@ root.resizable(width=0, height=0)
 #root.geometry('975x575')
 #root.configure(bg="grey")
 
+selected_party = tk.IntVar()
+selected_party.set(-1)
+
 container_1 = tk.Frame(root)
 container_1.pack(side=tk.TOP, padx=0, pady=20)
 
@@ -27,19 +30,20 @@ container_2.pack(side=tk.TOP, fill=tk.X, padx=0, pady=0)
 #separator_2.pack( ipady=250, padx=10)
 
 # # # # # # # # # # # # # # # # # # # #
+# Common section
 
 def add_corners (im, rad):
-    circle = Image.new ('L', (rad * 2, rad * 2), 0)
-    draw = ImageDraw.Draw (circle)
-    draw.ellipse ((5, 5, rad * 2, rad * 2), fill = 255)
-    alpha = Image.new ('L', im.size, 255)
-    w, h = im.size
-    alpha.paste (circle.crop ((0, 0, rad, rad)), (0, 0))
-    alpha.paste (circle.crop ((0, rad, rad, rad * 2)), (0, h-rad))
-    alpha.paste (circle.crop ((rad, 0, rad * 2, rad)), (w-rad, 0))
-    alpha.paste (circle.crop ((rad, rad, rad * 2, rad * 2)), (w-rad, h-rad))
-    im.putalpha (alpha)
-    return im
+		circle = Image.new ('L', (rad * 2, rad * 2), 0)
+		draw = ImageDraw.Draw (circle)
+		draw.ellipse ((5, 5, rad * 2, rad * 2), fill = 255)
+		alpha = Image.new ('L', im.size, 255)
+		w, h = im.size
+		alpha.paste (circle.crop ((0, 0, rad, rad)), (0, 0))
+		alpha.paste (circle.crop ((0, rad, rad, rad * 2)), (0, h-rad))
+		alpha.paste (circle.crop ((rad, 0, rad * 2, rad)), (w-rad, 0))
+		alpha.paste (circle.crop ((rad, rad, rad * 2, rad * 2)), (w-rad, h-rad))
+		im.putalpha (alpha)
+		return im
 
 image = Image.open("common_pictures/algeria_flag.png")
 image = add_corners (image, 100) #Execute the rounded method with arguments
@@ -68,6 +72,7 @@ main_label_3.pack(side=tk.BOTTOM)
 main_label_3.config(font=('times',12,'bold'))
 
 # # # # # # # # # # # # # # # # # #
+# Login section
 
 def valider():
 	container_log.pack_forget()
@@ -100,8 +105,46 @@ codePIN_e.pack()
 valider = tk.Button(container_log, width=19, font=('times',12,'bold','italic'), relief="groove", text="Valider", command=valider)
 valider.pack(side=tk.BOTTOM, pady= 20)
 
+# # # # # # # # # # # # # # # # # # # # # # # # 
+# Submit section
+
+entries = list()
+
+def sumbit_form():
+	global selected_party, entries
+	index = selected_party.get()
+	copy_list = PARTIES[index]["candidats"]
+	new_list = [None for _ in copy_list]
+	mask_list = [False for _ in copy_list]
+
+	if (index < 0):
+		return None
+
+	for i in range(len(entries)):
+		if (entries[i].get().isnumeric() and 0 < int(entries[i].get()) <= len(copy_list)):
+			new_list[int(entries[i].get())-1] =  copy_list[i]
+			mask_list[i] = True
+
+	first_false = -1
+	for i in range(len(new_list)):
+		if (new_list[i] is not None):
+			if first_false != -1:
+				return None
+		elif first_false == -1:
+			first_false = i
+
+	for i in range(len(copy_list)):
+		if not mask_list[i]:
+			new_list[first_false] = copy_list[i]
+			first_false += 1
+
+	print("Voted for {}".format(PARTIES[index]["nom"]))
+	for i in new_list:
+		print(i["nom"])
+
 
 # # # # # # # # # # # # # # # # # # # #
+# Candidat section
 
 container_list = tk.Frame(container_2, width=200)
 container_list.pack(side=tk.RIGHT)
@@ -112,11 +155,12 @@ deputes = []
 deputes_images = []
 
 def fill_list(index):
+	global deletable_list, container_list, deputes, deputes_images, selected_party, entries
 
-	global deletable_list, container_list, deputes, deputes_images
-
+	selected_party.set(index)
 
 	deletable_list.destroy()
+	entries = list()
 
 	deletable_list = tk.Frame(container_list)
 	deletable_list.pack()
@@ -147,13 +191,21 @@ def fill_list(index):
 
 		tk.Label(deputes[-1], width=50, text=i["nom"]).pack(side=tk.LEFT, expand=True)
 
-		tk.Entry(deputes[-1], width=5).pack(side=tk.LEFT, expand=True, padx=15)
-
-	tk.Button(deletable_list, text="Submit", width=15, font=('times',12,'bold','italic'), relief="groove" ,command=lambda: print("I voted!")).pack(side=tk.BOTTOM)
-
-
-# # # # # # # # # # # # # # # # # # # # # # # # 
+		entries.append(tk.Entry(deputes[-1], width=5))
+		entries[-1].pack(side=tk.LEFT, expand=True, padx=15)
 	
+	tk.Button(
+		deletable_list,
+		text="Submit",
+		width=15,
+		font=('times',12,'bold','italic'),
+		relief="groove",
+		command=sumbit_form
+	).pack(side=tk.BOTTOM)
+
+
+# # # # # # # # # # # # # # # # # # # # # # # #
+# Party section
 
 container_vote = tk.Frame(container_2)
 
