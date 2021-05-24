@@ -1,9 +1,9 @@
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image, ImageTk, ImageDraw
 import os
+from tkinter import ttk
 
-
-MAX_ROW = 4
+MAX_ROW = 3
 PARTIES = [
 	{
 	"nom" : "FLN",
@@ -28,7 +28,51 @@ PARTIES = [
 	},
 	{
 	"nom" : "RND",
-	"image" : "rnd.jpg",
+	"image" : "rnd.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "Nick.gif",
+		"classement" : 1
+		},
+	]
+	},
+	{
+	"nom" : "HMS",
+	"image" : "hms.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "Nick.gif",
+		"classement" : 1
+		},
+	]
+	},
+	{
+	"nom" : "MOUSTAKBAL",
+	"image" : "moustakbal.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "Nick.gif",
+		"classement" : 1
+		},
+	]
+	},
+	{
+	"nom" : "MPA",
+	"image" : "mpa.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "Nick.gif",
+		"classement" : 1
+		},
+	]
+	},
+	{
+	"nom" : "REA",
+	"image" : "rea.png",
 	"candidats" : [
 		{
 		"nom" : "Nick",
@@ -42,17 +86,38 @@ PARTIES = [
 
 root = tk.Tk()
 root.title("E-Nvoti")
-
+#root.geometry('975x575')
+root.resizable(width=0, height=0)
+#root.configure(bg="grey")
 
 container_1 = tk.Frame(root)
-container_1.pack(side=tk.TOP, padx=0, pady=0)
+container_1.pack(side=tk.TOP, padx=0, pady=20)
 
 container_2 = tk.Frame(root)
 container_2.pack(side=tk.TOP, fill=tk.X, padx=0, pady=0)
 
+
+#separator_2 = ttk.Separator(container_2, orient='vertical')
+#separator_2.pack( ipady=250, padx=10)
+
 # # # # # # # # # # # # # # # # # # # #
 
+def add_corners (im, rad):
+    circle = Image.new ('L', (rad * 2, rad * 2), 0)
+    draw = ImageDraw.Draw (circle)
+    draw.ellipse ((5, 5, rad * 2, rad * 2), fill = 255)
+    alpha = Image.new ('L', im.size, 255)
+    w, h = im.size
+    alpha.paste (circle.crop ((0, 0, rad, rad)), (0, 0))
+    alpha.paste (circle.crop ((0, rad, rad, rad * 2)), (0, h-rad))
+    alpha.paste (circle.crop ((rad, 0, rad * 2, rad)), (w-rad, 0))
+    alpha.paste (circle.crop ((rad, rad, rad * 2, rad * 2)), (w-rad, h-rad))
+    im.putalpha (alpha)
+    return im
+
 image = Image.open("algeria_flag.png")
+image = add_corners (image, 100) #Execute the rounded method with arguments
+image.save ('main.png')
 photo = ImageTk.PhotoImage(image)
 canvas = tk.Canvas(container_1, width = image.size[0], height = image.size[1])
 canvas.create_image(0,0, anchor = tk.NW, image=photo)
@@ -64,10 +129,17 @@ container_3 = tk.Frame(container_1)
 container_3.pack(side=tk.RIGHT)
 
 
-main_label_1 = tk.Label(container_3, text="République algérienne démocratique et populaire")
+main_label_1 = tk.Label(container_3, fg="royalblue4", text="République algérienne démocratique et populaire")
 main_label_1.pack(side=tk.TOP)
-main_label_2 = tk.Label(container_3, text="Autorité nationale indépendante des élections")
-main_label_2.pack(side=tk.BOTTOM)
+main_label_1.config(font=('times',15,'bold','italic'))
+main_label_2 = tk.Label(container_3,fg="royalblue4", text="Autorité nationale indépendante des élections")
+main_label_2.pack(side=tk.TOP)
+main_label_2.config(font=('times',15,'bold','italic'))
+separator_1 = ttk.Separator(container_3, orient='horizontal')
+separator_1.pack(side=tk.TOP, ipadx=150, pady=20)
+main_label_3 = tk.Label(container_3,fg="royalblue4", text="Elections legislatives")
+main_label_3.pack(side=tk.BOTTOM)
+main_label_3.config(font=('times',12,'bold'))
 
 # # # # # # # # # # # # # # # # # #
 
@@ -99,7 +171,7 @@ codePIN_e = tk.Entry(container_log, width=30)
 codePIN_e.pack()
 
 
-valider = tk.Button(container_log, width=25, pady=7, text="Valider", command=valider)
+valider = tk.Button(container_log, width=19, font=('times',12,'bold','italic'), relief="groove", text="Valider", command=valider)
 valider.pack(side=tk.BOTTOM, pady= 20)
 
 
@@ -114,12 +186,16 @@ deputes = []
 deputes_images = []
 
 def fill_list(index):
+
 	global deletable_list, container_list, deputes, deputes_images
+
 
 	deletable_list.destroy()
 
 	deletable_list = tk.Frame(container_list)
 	deletable_list.pack()
+	separator_2 = ttk.Separator(deletable_list, orient='vertical')
+	separator_2.pack(side=tk.LEFT, ipady=150, padx=10)
 
 	deputes = []
 	deputes_images = []
@@ -145,9 +221,9 @@ def fill_list(index):
 
 		tk.Label(deputes[-1], width=50, text=i["nom"]).pack(side=tk.LEFT, expand=True)
 
-		tk.Entry(deputes[-1], width=10).pack(side=tk.LEFT)
+		tk.Entry(deputes[-1], width=5).pack(side=tk.LEFT, expand=True, padx=15)
 
-	tk.Button(deletable_list, text="Submit", command=lambda: print("I voted!")).pack(side=tk.BOTTOM)
+	tk.Button(deletable_list, text="Submit", width=15, font=('times',12,'bold','italic'), relief="groove" ,command=lambda: print("I voted!")).pack(side=tk.BOTTOM)
 
 
 # # # # # # # # # # # # # # # # # # # # # # # # 
@@ -170,10 +246,10 @@ for i in range(len(PARTIES)):
 
 	tmp = tk.Canvas(
 		tmp_container,
-		width=100,
-		height=100
+		width=150,
+		height=150
 	)
-	tmp_image = Image.open(PARTIES[i]["image"]) 
+	tmp_image = Image.open(PARTIES[i]["image"])
 	partie_images.append(ImageTk.PhotoImage(tmp_image))
 	tmp.create_image(
 		0, 0,
@@ -187,6 +263,9 @@ for i in range(len(PARTIES)):
 	tmp = tk.Button(
 		tmp_container,
 		text=PARTIES[i]["nom"],
+		width=20,
+		relief="flat",
+		bg="azure3",
 		command=callback(i)
 	)
 	tmp.pack(side=tk.BOTTOM)
