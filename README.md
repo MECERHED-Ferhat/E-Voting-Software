@@ -21,3 +21,8 @@
 - Modèle client-serveur, application sur client, bdd sur serveur (impossible)
 - Votes stocké dans des fichiers
 - Simuler un serveur avec une autre application
+
+
+# Requirements
+Make sure you install all the requirements using:
+> pip 

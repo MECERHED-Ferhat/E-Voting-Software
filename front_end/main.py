@@ -1,93 +1,19 @@
 import tkinter as tk
-from PIL import Image, ImageTk, ImageDraw
-import os
 from tkinter import ttk
+from PIL import Image, ImageTk, ImageDraw
+import os, json 
 
 MAX_ROW = 3
-PARTIES = [
-	{
-	"nom" : "FLN",
-	"image" : "fln.png",
-	"candidats" : [
-		{
-		"nom" : "Adam",
-		"image" : "adam.jpg",
-		"classement" : 1
-		},
-		{
-		"nom" : "Madame",
-		"image" : "madame.jpg",
-		"classement" : 2
-		},
-		{
-		"nom" : "Moiselle",
-		"image" : "moiselle.jpg",
-		"classement" : 3
-		},
-	]
-	},
-	{
-	"nom" : "RND",
-	"image" : "rnd.png",
-	"candidats" : [
-		{
-		"nom" : "Nick",
-		"image" : "Nick.gif",
-		"classement" : 1
-		},
-	]
-	},
-	{
-	"nom" : "HMS",
-	"image" : "hms.png",
-	"candidats" : [
-		{
-		"nom" : "Nick",
-		"image" : "Nick.gif",
-		"classement" : 1
-		},
-	]
-	},
-	{
-	"nom" : "MOUSTAKBAL",
-	"image" : "moustakbal.png",
-	"candidats" : [
-		{
-		"nom" : "Nick",
-		"image" : "Nick.gif",
-		"classement" : 1
-		},
-	]
-	},
-	{
-	"nom" : "MPA",
-	"image" : "mpa.png",
-	"candidats" : [
-		{
-		"nom" : "Nick",
-		"image" : "Nick.gif",
-		"classement" : 1
-		},
-	]
-	},
-	{
-	"nom" : "REA",
-	"image" : "rea.png",
-	"candidats" : [
-		{
-		"nom" : "Nick",
-		"image" : "Nick.gif",
-		"classement" : 1
-		},
-	]
-	},
-]
+
+with open("data.json", "r") as f:
+	PARTIES = json.load(f)
 
 
 root = tk.Tk()
 root.title("E-Nvoti")
-#root.geometry('975x575')
+root.state('zoomed')
 root.resizable(width=0, height=0)
+#root.geometry('975x575')
 #root.configure(bg="grey")
 
 container_1 = tk.Frame(root)
@@ -115,9 +41,9 @@ def add_corners (im, rad):
     im.putalpha (alpha)
     return im
 
-image = Image.open("algeria_flag.png")
+image = Image.open("common_pictures/algeria_flag.png")
 image = add_corners (image, 100) #Execute the rounded method with arguments
-image.save ('main.png')
+image.save ('common_pictures/main.png')
 photo = ImageTk.PhotoImage(image)
 canvas = tk.Canvas(container_1, width = image.size[0], height = image.size[1])
 canvas.create_image(0,0, anchor = tk.NW, image=photo)

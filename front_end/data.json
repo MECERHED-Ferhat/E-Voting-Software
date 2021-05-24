@@ -1,0 +1,78 @@
+[
+	{
+	"nom" : "FLN",
+	"image" : "parties_pictures/fln.png",
+	"candidats" : [
+		{
+		"nom" : "Adam",
+		"image" : "candidats_pictures/adam.jpg",
+		"classement" : 1
+		},
+		{
+		"nom" : "Madame",
+		"image" : "candidats_pictures/madame.jpg",
+		"classement" : 2
+		},
+		{
+		"nom" : "Moiselle",
+		"image" : "candidats_pictures/moiselle.jpg",
+		"classement" : 3
+		}
+	]
+	},
+	{
+	"nom" : "RND",
+	"image" : "parties_pictures/rnd.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif",
+		"classement" : 1
+		}
+	]
+	},
+	{
+	"nom" : "HMS",
+	"image" : "parties_pictures/hms.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif",
+		"classement" : 1
+		}
+	]
+	},
+	{
+	"nom" : "MOUSTAKBAL",
+	"image" : "parties_pictures/moustakbal.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif",
+		"classement" : 1
+		}
+	]
+	},
+	{
+	"nom" : "MPA",
+	"image" : "parties_pictures/mpa.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif",
+		"classement" : 1
+		}
+	]
+	},
+	{
+	"nom" : "REA",
+	"image" : "parties_pictures/rea.png",
+	"candidats" : [
+		{
+		"nom" : "Nick",
+		"image" : "candidats_pictures/Nick.gif",
+		"classement" : 1
+		}
+	]
+	}
+]
