@@ -25,4 +25,4 @@
 
 # Requirements
 Make sure you install all the requirements using:
-> pip 
+> pip install -r requirements.txt
