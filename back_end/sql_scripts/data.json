@@ -1,0 +1,137 @@
+{
+	"electeur" : [
+		{
+			"id" : "",
+			"nom" : "Djabri",
+			"prenom" : "Abdelkader",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Benabdallah",
+			"prenom" : "Amel",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Guessoum",
+			"prenom" : "Fateh",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Mecerhed",
+			"prenom" : "Ferhat",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Wlid",
+			"prenom" : "Houmti",
+			"H_PIN" : "",
+			"eligible" : "FALSE"
+		}
+	],
+
+	"partie" : [
+		{
+		"nom" : "FLN",
+		"image" : "parties_pictures/fln.png",
+		"candidats" : [
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Adam",
+			"image" : "candidats_pictures/adam.jpg",
+			"classement" : 1
+			},
+			{
+			"nom" : "Madame",
+			"prenom" : "Dame",
+			"image" : "candidats_pictures/madame.jpg",
+			"classement" : 2
+			},
+			{
+			"nom" : "Mademoiselle",
+			"prenom" : "Moiselle",
+			"image" : "candidats_pictures/moiselle.jpg",
+			"classement" : 3
+			},
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Nick",
+			"image" : "candidats_pictures/Nick.gif",
+			"classement" : 4
+			}
+		]
+		},
+		{
+		"nom" : "RND",
+		"image" : "parties_pictures/rnd.png",
+		"candidats" : [
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Nick",
+			"image" : "candidats_pictures/Nick.gif",
+			"classement" : 1
+			}
+		]
+		},
+		{
+		"nom" : "HMS",
+		"image" : "parties_pictures/hms.png",
+		"candidats" : []
+		},
+		{
+		"nom" : "MOUSTAKBAL",
+		"image" : "parties_pictures/moustakbal.png",
+		"candidats" : [
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Nick",
+			"image" : "candidats_pictures/Nick.gif",
+			"classement" : 1
+			}
+		]
+		},
+		{
+		"nom" : "MPA",
+		"image" : "parties_pictures/mpa.png",
+		"candidats" : [
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Adam",
+			"image" : "candidats_pictures/adam.jpg",
+			"classement" : 1
+			},
+			{
+			"nom" : "Monsieur",
+			"prenom" : "Nick",
+			"image" : "candidats_pictures/Nick.gif",
+			"classement" : 2
+			}
+		]
+		},
+		{
+		"nom" : "REA",
+		"image" : "parties_pictures/rea.png",
+		"candidats" : [
+			{
+			"nom" : "Madame",
+			"prenom" : "dame",
+			"image" : "candidats_pictures/madame.jpg",
+			"classement" : 1
+			},
+			{
+			"nom" : "Demoiselle",
+			"prenom" : "Moiselle",
+			"image" : "candidats_pictures/moiselle.jpg",
+			"classement" : 2
+			}
+		]
+		}
+	]
+}
