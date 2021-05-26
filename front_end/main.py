@@ -138,6 +138,14 @@ def sumbit_form():
 			new_list[first_false] = copy_list[i]
 			first_false += 1
 
+
+	output = { 
+		"partie" 	: PARTIES[index]["nom"],
+		"candidats" : [{"nom" : i["nom"]} for i in new_list]
+	}
+	with open("test.json","w") as sortie:
+		json.dump(output, sortie, indent=2)
+	
 	print("Voted for {}".format(PARTIES[index]["nom"]))
 	for i in new_list:
 		print(i["nom"])

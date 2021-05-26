@@ -1,0 +1,32 @@
+Server side db:
+electeurs (
+	id				VARCHAR(18),
+	nom				VARCHAR(255),
+	prenom			VARCHAR(255),
+	H_PIN			VARCHAR(64),
+	eligible		BOOLEAN
+)
+candidats (
+	id				AUTO INCREMENT INT,
+	nom 			VARCHAR(255),
+	prenom			VARCHAR(255),
+	image			IRL,
+	id_partie 		INT,
+	classement 		INT
+)
+parties (
+	id				AUTO INCREMENT INT,
+	nom				VARCHAR(255),
+	image			IRL
+)
+vote (
+	id				AUTO INCREMENT INT,
+	id_partie* 		INT,
+
+)
+vote_candidats (
+	id_candidat* 	INT,
+	id_vote* 		INT,
+	classement 		INT,
+	primary key pk_vote_candidats (id_candidat, id_vote),
+)
