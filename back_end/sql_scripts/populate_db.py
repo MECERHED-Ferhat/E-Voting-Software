@@ -38,11 +38,12 @@ def populate_electeur(electeurs):
 					elec["id"] or random_key_generator(18),				# ID Electeur
 					elec["nom"],																	# Nom Electeur
 					elec["prenom"],																# Prenom Electeur
-					elec["H_PIN"] or random_key_generator(64),		# H_PIN Electeur
+					elec["wilaya"], 															# Wilaya Electeur
+					elec["H_PIN"] or random_key_generator(10),		# H_PIN Electeur
 					elec["eligible"] or eligible_random_state()		# Eligible Electeur
 				)
 				sql_query = """
-					INSERT INTO Electeur VALUES (?, ?, ?, ?, ?);
+					INSERT INTO Electeur VALUES (?, ?, ?, ?, ?, ?);
 				"""
 				curseur.execute(sql_query, sql_params)
 				connexion.commit()
@@ -65,10 +66,11 @@ def populate_partie(parties):
 				sql_params = (
 					i, 																						# ID Partie
 					parties[i]["nom"],														# Nom Partie
+					parties[i]["wilaya"], 												# Wilaya Partie
 					parties[i]["image"]														# Image Partie
 				)
 				sql_query = """
-					INSERT INTO Partie VALUES (?, ?, ?);
+					INSERT INTO Partie VALUES (?, ?, ?, ?);
 				"""
 				curseur.execute(sql_query, sql_params)
 

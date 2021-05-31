@@ -4,6 +4,7 @@
 			"id" : "",
 			"nom" : "Djabri",
 			"prenom" : "Abdelkader",
+			"wilaya" : "Alger",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -11,6 +12,7 @@
 			"id" : "",
 			"nom" : "Benabdallah",
 			"prenom" : "Amel",
+			"wilaya" : "Alger",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -18,6 +20,7 @@
 			"id" : "",
 			"nom" : "Guessoum",
 			"prenom" : "Fateh",
+			"wilaya" : "Alger",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -25,6 +28,7 @@
 			"id" : "",
 			"nom" : "Mecerhed",
 			"prenom" : "Ferhat",
+			"wilaya" : "Alger",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -32,6 +36,7 @@
 			"id" : "",
 			"nom" : "Wlid",
 			"prenom" : "Houmti",
+			"wilaya" : "Alger",
 			"H_PIN" : "",
 			"eligible" : "FALSE"
 		}
@@ -41,6 +46,7 @@
 		{
 		"nom" : "FLN",
 		"image" : "parties_pictures/fln.png",
+		"wilaya" : "Alger",
 		"candidats" : [
 			{
 			"nom" : "Monsieur",
@@ -67,6 +73,7 @@
 		{
 		"nom" : "RND",
 		"image" : "parties_pictures/rnd.png",
+		"wilaya" : "Alger",
 		"candidats" : [
 			{
 			"nom" : "Monsieur",
@@ -78,11 +85,13 @@
 		{
 		"nom" : "HMS",
 		"image" : "parties_pictures/hms.png",
+		"wilaya" : "Alger",
 		"candidats" : []
 		},
 		{
 		"nom" : "MOUSTAKBAL",
 		"image" : "parties_pictures/moustakbal.png",
+		"wilaya" : "Alger",
 		"candidats" : [
 			{
 			"nom" : "Monsieur",
@@ -94,6 +103,7 @@
 		{
 		"nom" : "MPA",
 		"image" : "parties_pictures/mpa.png",
+		"wilaya" : "Alger",
 		"candidats" : [
 			{
 			"nom" : "Monsieur",
@@ -110,6 +120,7 @@
 		{
 		"nom" : "REA",
 		"image" : "parties_pictures/rea.png",
+		"wilaya" : "Alger",
 		"candidats" : [
 			{
 			"nom" : "Madame",

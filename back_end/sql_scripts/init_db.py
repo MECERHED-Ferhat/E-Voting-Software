@@ -9,6 +9,7 @@ try:
 		id 						VARCHAR(18),
 		nom 					VARCHAR(255),
 		prenom 				VARCHAR(255),
+		wilaya 				VARCHAR(255),
 		H_PIN 				VARCHAR(64),
 		Eligible 			BOOLEAN,
 
@@ -18,6 +19,7 @@ try:
 	CREATE TABLE IF NOT EXISTS Partie (
 		id 						INT,
 		nom 					VARCHAR(255),
+		wilaya 				VARCHAR(255),
 		image 				VARCHAR(255),
 
 		CONSTRAINT PK_Partie PRIMARY KEY (id)
