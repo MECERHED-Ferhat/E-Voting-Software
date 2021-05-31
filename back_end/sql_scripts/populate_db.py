@@ -81,11 +81,10 @@ def populate_partie(parties):
 						parties[i]["candidats"][j]["nom"],					# Nom Candidat
 						parties[i]["candidats"][j]["prenom"],				# Prenom Candidat
 						parties[i]["candidats"][j]["image"],				# Image Candidat
-						parties[i]["candidats"][j]["classement"],		# Classement Candidat
 						i 																					# Id Partie_Candidat
 					)
 					sql_query = """
-						INSERT INTO Candidat VALUES (?, ?, ?, ?, ?, ?);
+						INSERT INTO Candidat VALUES (?, ?, ?, ?, ?);
 					"""
 					curseur.execute(sql_query, sql_params)
 

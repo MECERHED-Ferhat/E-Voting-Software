@@ -45,26 +45,22 @@
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Adam",
-			"image" : "candidats_pictures/adam.jpg",
-			"classement" : 1
+			"image" : "candidats_pictures/adam.jpg"
 			},
 			{
 			"nom" : "Madame",
 			"prenom" : "Dame",
-			"image" : "candidats_pictures/madame.jpg",
-			"classement" : 2
+			"image" : "candidats_pictures/madame.jpg"
 			},
 			{
 			"nom" : "Mademoiselle",
 			"prenom" : "Moiselle",
-			"image" : "candidats_pictures/moiselle.jpg",
-			"classement" : 3
+			"image" : "candidats_pictures/moiselle.jpg"
 			},
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif",
-			"classement" : 4
+			"image" : "candidats_pictures/Nick.gif"
 			}
 		]
 		},
@@ -75,8 +71,7 @@
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif",
-			"classement" : 1
+			"image" : "candidats_pictures/Nick.gif"
 			}
 		]
 		},
@@ -92,8 +87,7 @@
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif",
-			"classement" : 1
+			"image" : "candidats_pictures/Nick.gif"
 			}
 		]
 		},
@@ -104,14 +98,12 @@
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Adam",
-			"image" : "candidats_pictures/adam.jpg",
-			"classement" : 1
+			"image" : "candidats_pictures/adam.jpg"
 			},
 			{
 			"nom" : "Monsieur",
 			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif",
-			"classement" : 2
+			"image" : "candidats_pictures/Nick.gif"
 			}
 		]
 		},
@@ -122,14 +114,12 @@
 			{
 			"nom" : "Madame",
 			"prenom" : "dame",
-			"image" : "candidats_pictures/madame.jpg",
-			"classement" : 1
+			"image" : "candidats_pictures/madame.jpg"
 			},
 			{
 			"nom" : "Demoiselle",
 			"prenom" : "Moiselle",
-			"image" : "candidats_pictures/moiselle.jpg",
-			"classement" : 2
+			"image" : "candidats_pictures/moiselle.jpg"
 			}
 		]
 		}
