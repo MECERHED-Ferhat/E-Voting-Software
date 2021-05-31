@@ -6,7 +6,7 @@ curseur = connexion.cursor()
 #view for number of votes per party
 try:
 	sql_query = """
-			create view if not exists V(parti, nb_vote) as SELECT nom, count(id_partie) as result
+			CREATE VIEW IF NOT EXISTS V(parti, nb_vote) AS SELECT nom, count(id_partie) AS result
 											FROM partie, vote
 											WHERE partie.id = vote.id_partie
 											GROUP BY vote.id_partie

@@ -96,5 +96,6 @@ def populate_partie(parties):
 		handle_SQL_error(er)
 
 
+populate_electeur(DATA["electeur"])
 populate_partie(DATA["partie"])
 connexion.close()

@@ -28,7 +28,6 @@ try:
 		nom 					VARCHAR(255),
 		prenom 				VARCHAR(255),
 		image 				VARCHAR(255),
-		classement 		INT,
 		id_partie 		INT,
 
 		CONSTRAINT PK_Candidat PRIMARY KEY (id, id_partie),
@@ -39,7 +38,7 @@ try:
 	);
 
 	CREATE TABLE IF NOT EXISTS Vote (
-		id 						INT,
+		id 						AUTO INCREMENT INT,
 		id_partie 		INT,
 
 		CONSTRAINT PK_Vote PRIMARY KEY (id),
