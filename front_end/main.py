@@ -1,12 +1,12 @@
 import tkinter as tk
+import os, json
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
-import os, json 
+from front_end import get_data
 
 MAX_ROW = 3
 
-with open("data.json", "r") as f:
-	PARTIES = json.load(f)
+PARTIES = get_data()
 
 
 root = tk.Tk()
