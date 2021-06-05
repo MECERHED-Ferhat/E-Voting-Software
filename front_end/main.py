@@ -2,11 +2,16 @@ import tkinter as tk
 import os, json
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
-from front_end import get_data
+from front_end import get_data, auth
+import socket
+from time import sleep
+import hashlib
+
 
 MAX_ROW = 3
 
 PARTIES = get_data()
+#auth = auth()
 
 
 root = tk.Tk()
@@ -25,9 +30,6 @@ container_1.pack(side=tk.TOP, padx=0, pady=20)
 container_2 = tk.Frame(root)
 container_2.pack(side=tk.TOP, fill=tk.X, padx=0, pady=0)
 
-
-#separator_2 = ttk.Separator(container_2, orient='vertical')
-#separator_2.pack( ipady=250, padx=10)
 
 # # # # # # # # # # # # # # # # # # # #
 # Common section
@@ -74,36 +76,84 @@ main_label_3.config(font=('times',12,'bold'))
 # # # # # # # # # # # # # # # # # #
 # Login section
 
+def return_entry(en):    
+    content = en.get()
+    #print(content)
+    return content
+
+def electeur_info():
+	global elec
+	nom = return_entry(n)
+	prenom = return_entry(p)
+	iden = return_entry(di)
+	pin = return_entry(cp)
+	#hpin = hashlib.sha256(pin.encode('utf-8')).hexdigest()
+	#print(nom, prenom, iden, hpin)
+	elec = { "nom" : nom,
+			"prenom" : prenom,
+			"id" : iden,
+			"hpin" : pin
+
+	}
+	#print(elec)
+	return elec
+
+
 def valider():
 	container_log.pack_forget()
 	container_vote.pack(side=tk.BOTTOM, padx=0, pady=0)
 
+def request_auth():
+	el = electeur_info()
+	authentication = auth(el) 
+	a = authentication["ok"]	
+	if a == True:
+		print("access granted")
+		valider()
+	else:
+		print("access denied")
+		access_denied = tk.Tk()
+		access_denied.title("Access Denied")
+		access_denied.geometry('200x100')
+		root.resizable(width=0, height=0)
+		ad = tk.Label(access_denied, text="Access Denied")
+		ad.pack()
+		access_denied.mainloop()
+		
+
 container_log = tk.Frame(container_2)
 container_log.pack(side=tk.BOTTOM, padx=0, pady=0)
 
+
+n = tk.StringVar()
 nom_l = tk.Label(container_log, text="Nom")
 nom_l.pack()
-nom_e = tk.Entry(container_log, width=30)
+nom_e = tk.Entry(container_log, width=30, textvariable=n)
 nom_e.pack()
+nom_e.bind('<Return>', return_entry)
 
+p = tk.StringVar()
 prenom_l = tk.Label(container_log, text="Prenom")
 prenom_l.pack()
-prenom_e = tk.Entry(container_log, width=30)
+prenom_e = tk.Entry(container_log, width=30, textvariable=p)
 prenom_e.pack()
 
+di = tk.StringVar()
 ID_l = tk.Label(container_log, text="ID")
 ID_l.pack()
-ID_e = tk.Entry(container_log, width=30)
+ID_e = tk.Entry(container_log, width=30, textvariable=di)
 ID_e.pack()
 
+cp = tk.StringVar()
 codePIN_l = tk.Label(container_log, text="Code PIN")
 codePIN_l.pack()
-codePIN_e = tk.Entry(container_log, width=30)
+codePIN_e = tk.Entry(container_log, width=30, textvariable=cp)
 codePIN_e.pack()
 
 
-valider = tk.Button(container_log, width=19, font=('times',12,'bold','italic'), relief="groove", text="Valider", command=valider)
-valider.pack(side=tk.BOTTOM, pady= 20)
+valider_b = tk.Button(container_log, width=19, font=('times',12,'bold','italic'), relief="groove", text="Valider", command=request_auth)
+valider_b.pack(side=tk.BOTTOM, pady= 20)
+#lambda:[electeur_info(), request_auth()]
 
 # # # # # # # # # # # # # # # # # # # # # # # # 
 # Submit section

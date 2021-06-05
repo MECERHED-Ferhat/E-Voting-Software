@@ -45,6 +45,37 @@ def get_data():
 	return db_data
 
 
+def auth():
+	connexion = sqlite3.connect("./database.db")
+	curseur = connexion.cursor()
+	auth = {"ok" : False}
+	try:
+		curseur.execute("""
+				SELECT H_PIN, Eligible
+				FROM Electeur
+				WHERE id = ?
+			""", (res["elec"]["id"],))
+		results = curseur.fetchone()
+		if results is not None: #il existe dans la bdd--> +18 ans et algerien
+			if results[0] == res["elec"]["hpin"] and results[1] == "TRUE": #check hpin and eligible
+				auth = { "ok" : True}
+				print("Access granted")
+			else:
+				print("Access denied")
+		else:
+			print("Not Eligible")
+
+
+	except sqlite3.Error as er:
+		print('SQLite error: %s' % (' '.join(er.args)))
+		print("Exception class is: ", er.__class__)
+		print('SQLite traceback: ')
+		exc_type, exc_value, exc_tb = sys.exc_info()
+		print(traceback.format_exception(exc_type, exc_value, exc_tb))
+		
+	connexion.close()
+	return auth
+
 
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 	s.bind((HOST, PORT))
@@ -64,4 +95,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
 				##############################
 				if "request" in res and res["request"] == "GET_DATA":
 					conn.send(json.dumps(get_data(), indent=2).encode("utf-8"))
-				##############################
+
+				if "request" in res and res["request"] == "AUTH":
+					conn.send(json.dumps(auth(), indent=2).encode("utf-8"))
+ 				##############################
