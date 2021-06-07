@@ -17,7 +17,6 @@ def get_data():
 			else:
 				break;
 
-
 		##############################
 		res = {
 			"request" : "GET_DATA",
@@ -42,17 +41,15 @@ def auth(electeur):
 			else:
 				break;
 
-
 		##############################
 		"""
 		res = {
 			"request" : "AUTH",
 			"elec" : { 
-						"nom" : "Djabri",
-						"prenom" : "Abdelkader",
-						"id" : "9531AD056C3A785538",
-						"hpin" : "2A0B98A180"
-
+				"nom" : "Djabri",
+				"prenom" : "Abdelkader",
+				"id" : "9531AD056C3A785538",
+				"hpin" : "2A0B98A180"
 			}
 		}
 		"""
@@ -60,9 +57,9 @@ def auth(electeur):
 			"request" : "AUTH",
 			"elec" :  electeur	
 		}
-		
+
 		s.send(json.dumps(res, indent=2).encode("utf-8"))
-		
+
 		auth = json.loads(s.recv(4096).decode("utf-8"))
 
 
