@@ -10,7 +10,7 @@ import hashlib
 
 MAX_ROW = 3
 
-PARTIES = get_data()
+PARTIES = []
 #auth = auth()
 
 
@@ -100,6 +100,8 @@ def electeur_info():
 
 
 def valider():
+	global PARTIES
+	PARTIES = get_data()
 	container_log.pack_forget()
 	container_vote.pack(side=tk.BOTTOM, padx=0, pady=0)
 

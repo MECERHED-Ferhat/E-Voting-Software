@@ -1,7 +1,8 @@
-import socket, sqlite3, sys, traceback, json
+import socket, sqlite3, sys, traceback, json, os, time, threading
+main_dir, _ = os.path.split(os.path.abspath(os.getcwd()))
+sys.path.append(main_dir)
+import constants
 
-HOST = "127.0.0.1"
-PORT = 4444
 
 def get_data():
 	connexion = sqlite3.connect("./database.db")
@@ -42,7 +43,12 @@ def get_data():
 		print(traceback.format_exception(exc_type, exc_value, exc_tb))
 		db_data = []
 	connexion.close()
-	return db_data
+	return {
+		"src" : constants.REGISTER,
+		"dest" : constants.USER_APP,
+		"body" : db_data,
+		"to_string" : "Database informations"
+	}
 
 
 def auth():
@@ -74,28 +80,47 @@ def auth():
 		print(traceback.format_exception(exc_type, exc_value, exc_tb))
 		
 	connexion.close()
-	return auth
+	return {
+		"src" : constants.REGISTER,
+		"dest" : constants.USER_APP,
+		"body" : auth,
+		"to_string" : "Database informations"
+	}
 
 
-with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-	s.bind((HOST, PORT))
-	s.listen()
-	while True:
-		print("Listening...")
-		conn, addr = s.accept()
-		
-		with conn:
-			print("Connected by ", addr, "\n")
+def main_thread(HOST):
+	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
+		while True:
 			while True:
-				data = conn.recv(4096)
+				try:
+					time.sleep(1)
+					s.connect((HOST, constants.USER_APP_PORT))
+				except Exception:
+					continue
+				else:
+					break;
+
+			while True:
+				try:
+					data = s.recv(4096)
+				except Exception:
+					break;
 				if not data:
 					break
 				res = json.loads(data.decode("utf-8"))
 
 				##############################
-				if "request" in res and res["request"] == "GET_DATA":
-					conn.send(json.dumps(get_data(), indent=2).encode("utf-8"))
+				if "request" in res["body"] and res["body"]["request"] == "GET_DATA":
+					s.send(json.dumps(get_data(), indent=2).encode("utf-8"))
 
-				if "request" in res and res["request"] == "AUTH":
-					conn.send(json.dumps(auth(), indent=2).encode("utf-8"))
- 				##############################
+				if "request" in res["body"] and res["body"]["request"] == "AUTH":
+					s.send(json.dumps(auth(), indent=2).encode("utf-8"))
+	 			##############################
+
+if __name__ == "__main__":
+	HOST = "127.0.0.1"
+
+	threading.Thread(target=main_thread, args=(HOST,), daemon=True).start()
+
+	while True:
+		time.sleep(20)
