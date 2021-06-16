@@ -1,4 +1,4 @@
-import threading, time, socket, sys, os, json
+import threading, time, socket, sys, os, json, pickle
 main_dir, _ = os.path.split(os.path.abspath(os.getcwd()))
 sys.path.append(main_dir)
 import constants
@@ -9,7 +9,6 @@ BUFFER = {
 	constants.CENTRE_VOTE: None,
 	constants.XXXX: None
 }
-SENDERS = dict()
 
 def listener(nport):
 	global BUFFER
@@ -20,7 +19,7 @@ def listener(nport):
 		while True:
 			print("Listening... on ", nport)
 			conn, addr = s.accept()
-			print("router-listener connected")
+			print("router-listener connected on ", nport)
 
 			with conn:
 				while True:
@@ -30,10 +29,14 @@ def listener(nport):
 						break
 					if not data:
 						break
+
 					tmp = json.loads(data.decode("utf-8"))
+
+					with open("__conn_tmp__.dat", "ab") as f:
+						pickle.Pickler(f).dump(tmp)
+
 					if ("dest" in tmp):
 						BUFFER[tmp["dest"]] = tmp
-						print(tmp)
 
 def sender(nport, dest):
 	global BUFFER
@@ -42,13 +45,12 @@ def sender(nport, dest):
 		while True:
 			try:
 				time.sleep(1)
-				print("trying on ", nport)
 				s.connect(("127.0.0.1", nport))
 			except Exception:
 				pass
 			else:
 				break;
-		print("router-sender connected")
+		print("Connected to ", dest)
 
 		while True:
 			while BUFFER[dest] is None:

@@ -2,15 +2,14 @@ import tkinter as tk
 import os, json
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
-from front_end import get_data, auth
+from front_end_func import get_data, auth
 import socket
 from time import sleep
 import hashlib
 
-
 MAX_ROW = 3
 
-PARTIES = []
+PARTIES = get_data()
 #auth = auth()
 
 
@@ -89,26 +88,25 @@ def electeur_info():
 	pin = return_entry(cp)
 	#hpin = hashlib.sha256(pin.encode('utf-8')).hexdigest()
 	#print(nom, prenom, iden, hpin)
-	elec = { "nom" : nom,
-			"prenom" : prenom,
-			"id" : iden,
-			"hpin" : pin
-
+	elec = {
+		"nom" : nom,
+		"prenom" : prenom,
+		"id" : iden,
+		"hpin" : pin
 	}
 	#print(elec)
 	return elec
 
 
 def valider():
-	global PARTIES
-	PARTIES = get_data()
 	container_log.pack_forget()
 	container_vote.pack(side=tk.BOTTOM, padx=0, pady=0)
 
 def request_auth():
 	el = electeur_info()
-	authentication = auth(el) 
-	a = authentication["ok"]	
+	authentication = auth(el)
+	a = authentication["ok"]
+	a = True 									# <--------------------	
 	if a == True:
 		print("access granted")
 		valider()

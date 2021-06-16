@@ -1,4 +1,5 @@
 import socket, sqlite3, sys, traceback, json, os, time, threading
+from _connection import sender, fetch
 main_dir, _ = os.path.split(os.path.abspath(os.getcwd()))
 sys.path.append(main_dir)
 import constants
@@ -51,7 +52,7 @@ def get_data():
 	}
 
 
-def auth():
+def auth(res):
 	connexion = sqlite3.connect("./database.db")
 	curseur = connexion.cursor()
 	auth = {"ok" : False}
@@ -84,43 +85,22 @@ def auth():
 		"src" : constants.REGISTER,
 		"dest" : constants.USER_APP,
 		"body" : auth,
-		"to_string" : "Database informations"
+		"to_string" : "Authentication check"
 	}
 
 
-def main_thread(HOST):
-	with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
-		while True:
-			while True:
-				try:
-					time.sleep(1)
-					s.connect((HOST, constants.USER_APP_PORT))
-				except Exception:
-					continue
-				else:
-					break;
+def main_thread():
+	while True:
+		res = fetch()
 
-			while True:
-				try:
-					data = s.recv(4096)
-				except Exception:
-					break;
-				if not data:
-					break
-				res = json.loads(data.decode("utf-8"))
+		if "request" in res and res["request"] == "GET_DATA":
+			sender(get_data())
 
-				##############################
-				if "request" in res["body"] and res["body"]["request"] == "GET_DATA":
-					s.send(json.dumps(get_data(), indent=2).encode("utf-8"))
-
-				if "request" in res["body"] and res["body"]["request"] == "AUTH":
-					s.send(json.dumps(auth(), indent=2).encode("utf-8"))
-	 			##############################
+		if "request" in res and res["request"] == "AUTH":
+			sender(auth(res))
 
 if __name__ == "__main__":
-	HOST = "127.0.0.1"
-
-	threading.Thread(target=main_thread, args=(HOST,), daemon=True).start()
+	threading.Thread(target=main_thread, daemon=True).start()
 
 	while True:
 		time.sleep(20)

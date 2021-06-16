@@ -4,8 +4,8 @@ sys.path.append(main_dir)
 import constants
 
 
-N_PORT = constants.REGISTER_PORT
-N_PORT_REC = constants.REGISTER_PORT_REC
+N_PORT = constants.USER_APP_PORT
+N_PORT_REC = constants.USER_APP_PORT_REC
 
 
 def listener():
@@ -17,7 +17,7 @@ def listener():
 		while True:
 			print("Listening... on ", N_PORT_REC)
 			conn, addr = s.accept()
-			print("register-listener connected")
+			print("user-app-listener connected")
 
 			with conn:
 				while True:
@@ -59,7 +59,7 @@ def sender(data):
 				pass
 			else:
 				break;
-		print("register-sender connected")
+		print("user-app-sender connected")
 
 		try:
 			s.send(json.dumps(data, indent=2).encode("utf-8"))
@@ -68,7 +68,6 @@ def sender(data):
 			
 
 if __name__ == "__main__":
-
 	threading.Thread(target=listener, daemon=True).start()
 
 	while True:

@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import ttk
-import json
+import json, threading, time, pickle
 
 
 root = tk.Tk()
@@ -12,9 +12,6 @@ root.state("zoomed")
 left_container = tk.Frame(root)
 left_container.pack(side=tk.LEFT, fill=tk.Y, padx=0, pady=50)
 
-#titre_l = tk.Label(left_container, text="LEFT TITLE")
-#titre_l.pack()
-#titre_l.config(font=('arial',13,'bold'))
 
 WIDTH_LABEL_2 = 55
 SIZE_LABEL_1 = 18
@@ -23,10 +20,11 @@ SIZE_LABEL_2 = 20
 right_container = tk.Frame(root)
 right_container.pack(side=tk.RIGHT, fill=tk.Y, padx=0, pady=50)   # Add fill=tk.Y
 
+"""
 titre_r = tk.Label(right_container, text="Analyse du paquet")
 titre_r.pack(pady=20)
 titre_r.config(font=('arial',20,'bold'))
-
+"""
 separator = ttk.Separator(right_container, orient='vertical')
 separator.pack(side=tk.LEFT, ipady=300, padx=10)
 
@@ -100,33 +98,76 @@ label_3_2 = tk.Label(
 label_3_2.pack(fill=tk.Y)
 label_3_2.config(font=('arial', SIZE_LABEL_2))
 
+
 def fill_packet(src="", dest="", to_string=""):
 	global source, destination, content
 	source.set(src)
 	destination.set(dest)
 	content.set(to_string)
 
-"""
-tree= ttk.Treeview(right_container, column=("column1", "column2", "column3"), show='headings', height=10)
-tree.heading("#1", text="De")
+
+content_list = []
+def selectItem(item):
+    curItem = tree.focus()
+    val = tree.item(curItem, 'values')
+    row = tree.selection()
+    ind = tree.index(row)
+    cont = content_list[ind]
+    fill_packet(val[0], val[1], cont)
+   
+    
+
+def clear():
+	fill_packet("", "", "")
+
+
+tree = ttk.Treeview(left_container, column=("column1", "column2"), show='headings', height=10)
+tree.heading("#1", text="Source")
 tree.column("#1", width=175, anchor="c")
-tree.heading("#2", text="A")
+tree.heading("#2", text="Destination")
 tree.column("#2", width=175, anchor="c")
-tree.heading("#3", text="Contenu")
-tree.column("#3", width=250, anchor="c")
-tree.pack(side=tk.LEFT, fill=tk.X, padx=20, pady=0)
+tree.pack(side=tk.TOP, fill=tk.X, padx=20, pady=20)
+tree.bind('<ButtonRelease-1>', selectItem)
 
 style = ttk.Style()
 style.configure("Treeview", font=('arial', 14), rowhight=50)
 style.configure("Treeview.Heading", font=('arial', 14, 'bold'), )
-"""
 
-with open("packets.json", "r") as f:
-	packets = json.load(f)
-fill_packet(packets["src"], packets["dest"], packets["to_string"])
+
+def fill_list(packet):
+	global content_list
+
+	tree.insert("", "end", values=(packet["src"], packet["dest"]))
+	content_list.append(packet["to_string"])
+
+
+btn = tk.Button(left_container, text='Clear', width=20, relief="solid", command=clear) 
+btn.pack(pady=40)
+#fill_packet(packets["src"], packets["dest"], packets["to_string"])
 
 
 # tree.insert("", "end", values=(packets["Src"], packets["Dest"], packets["To_string"]))
 
+def packet_listener():
+	while True:
+		time.sleep(2)
+		try:
+			tmp = []
+			with open("__conn_tmp__.dat", "rb") as f:
+				while True:
+					try:
+						tmp.append(pickle.Unpickler(f).load())
+					except Exception:
+						break
+			with open("__conn_tmp__.dat", "wb") as f:
+				pass
+			for x in tmp:
+				fill_list(x)
+
+		except Exception as e:
+			print(e)
+			continue
+
+threading.Thread(target=packet_listener, daemon=True).start()
 
 root.mainloop()
