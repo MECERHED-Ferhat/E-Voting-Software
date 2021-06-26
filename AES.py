@@ -6,7 +6,7 @@ from Crypto.Hash import SHA256
 from random import SystemRandom
 import random
 import array
-import os
+import os, sys
 
 #AES file Encryption 
 def AESEncryption(key, filename):

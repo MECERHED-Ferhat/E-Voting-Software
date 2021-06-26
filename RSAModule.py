@@ -4,7 +4,7 @@ from pathlib import Path
 import base64
 import zlib
 from nanoid import generate
-import sys
+import sys, os
 import hashlib
 import base64
 from cryptography.exceptions import InvalidSignature
