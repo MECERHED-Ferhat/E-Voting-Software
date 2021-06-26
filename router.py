@@ -29,7 +29,7 @@ def listener(nport):
 						break
 						
 					tmp = json.loads(data.decode("utf-8"))
-
+					
 					with open("__conn_router__.dat", "ab") as f:
 						pickle.Pickler(f).dump(tmp)
 

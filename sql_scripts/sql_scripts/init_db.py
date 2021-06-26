@@ -40,10 +40,11 @@ try:
 	);
 
 	CREATE TABLE IF NOT EXISTS Vote (
-		id 						INT PRIMARY KEY,
+		id 						INT AUTO INCREMENT,
 		id_partie 		INT,
 		token 				VARCHAR(255),
 
+		CONSTRAINT PK_Vote PRIMARY KEY (id),
 		CONSTRAINT FK_Vote_for_Partie
 			FOREIGN KEY (id_partie)
 			REFERENCES Partie(id)

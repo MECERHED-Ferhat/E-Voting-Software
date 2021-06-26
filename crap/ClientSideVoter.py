@@ -156,7 +156,7 @@ if __name__ == '__main__':
 		message = m.read()
 
 	#======================= Blinding the encrypted vote =========================#
-
+	"""
 	VoteBlinded  = PublicKey.blind(message, r)
 
 	with open(Blindfile, 'w') as outfile:#wb means write in the binary mode
@@ -164,11 +164,11 @@ if __name__ == '__main__':
 
 	#print("\n\n blided:" +str(VoteBlinded ))
 	#print('Done.')
-
+	"""
 	#======================= Sign the Blinded file ================================# 
 
 	#signing a file
-	Signature=RSAModule.Sign_File(private_key, Blindfile)
+	Signature=RSAModule.Sign_File(private_key, encrypted_Vote)
 
 	#Write Result of sginature to file 
 	with open(sigfile, 'w') as f:
@@ -193,9 +193,11 @@ if __name__ == '__main__':
 	SendFileToServer(SendingFile, "Sending to Server 1")
 	print('file 1 sent')
 	time.sleep(3)
+	"""
 	SendFileToServer(Blindfile, "Sending to Server 2")
 	print('File 2 sent')
-	time.sleep(10)    
+	time.sleep(10)
+	"""    
 	
 #========================================= Receive the new signature from registrer ==============================================#
 
@@ -207,16 +209,16 @@ if __name__ == '__main__':
 
 	#======================= Decrypt the signature with rsa =======================#
 
-
+	
 	#Decrypt the file 
-	decrypted_msg = RSAModule.FileDecryption(EncryptedBlindFile.encode(), private_key.read_bytes())
+	decrypted_msg = RSAModule.FileDecryption(EncBlindFile.encode(), private_key.read_bytes())
 
 	#Write the obtained decrypted blind to file 
-	with open(SignedBlindedVote, 'w') as f:
+	with open(SignedUnBlindedVote, 'w') as f:
 		f.write(decrypted_msg.decode())
-
+	
 	#======================= Unblind the Received file ======================================#
-
+	"""
 	messageSignature = PublicKey.unblind(SignedBlindedVote[0], r)
 	print("\n\n unblind" +str(messageSignature))
 
@@ -224,7 +226,7 @@ if __name__ == '__main__':
 	with open(SignedUnBlindedVote, 'w') as f:
 		f.write(messageSignature.decode())
 
-
+	"""
 #================================ Prepare Files to send to the server side ===============================================#
 
 	#=================== Encrypt the signature with rsa ====================#

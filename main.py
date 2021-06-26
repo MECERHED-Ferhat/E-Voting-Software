@@ -3,7 +3,7 @@ import os, json
 import subprocess as sb
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
-from ClientSideVoter import get_data, auth
+from user_app import get_data, send_vote, send_vote_server
 import socket
 from time import sleep
 import hashlib
@@ -203,9 +203,11 @@ def sumbit_form():
 	}
 	with open("Vote.json", "wb") as f:
 		f.write(json.dumps(output).encode("utf-8"))
-		sb.Popen(
-			["python", "ClientSideVoter.py"]
-		)
+	reponse = send_vote()
+
+	if (reponse["ok"]):
+		token = send_vote_server()
+		print(token)
 
 
 # # # # # # # # # # # # # # # # # # # #

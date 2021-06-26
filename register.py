@@ -59,10 +59,10 @@ def auth(res):
 				SELECT H_PIN, Eligible
 				FROM Electeur
 				WHERE id = ?
-			""", (res["elec"]["id"],))
+			""", (res["electeur"]["id"],))
 		results = curseur.fetchone()
 		if results is not None: #il existe dans la bdd--> +18 ans et algerien
-			if results[0] == res["elec"]["hpin"] and results[1] == "TRUE": #check hpin and eligible
+			if results[0] == res["electeur"]["hpin"] and results[1] == "TRUE": #check hpin and eligible
 				auth = { "ok" : True}
 				print("Access granted")
 			else:
@@ -79,12 +79,13 @@ def auth(res):
 		print(traceback.format_exception(exc_type, exc_value, exc_tb))
 		
 	connexion.close()
-	return {
+	
+	sender({
 		"src" : constants.REGISTER,
 		"dest" : constants.USER_APP,
 		"body" : auth,
 		"to_string" : "Authentication check"
-	}
+	})
 
 
 def main_thread():
@@ -94,8 +95,8 @@ def main_thread():
 		if "request" in res and res["request"] == "GET_DATA":
 			sender(get_data())
 
-		if "request" in res and res["request"] == "AUTH":
-			sender(auth(res))
+		if "request" in res and res["request"] == "VERIFY_AUTH":
+			auth(res["data"])
 
 
 if __name__ == "__main__":

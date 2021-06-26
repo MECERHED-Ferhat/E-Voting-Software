@@ -103,7 +103,7 @@ for vote in votes:
 
 		try:
 			curseur.execute("""
-			SELECT max(id)
+			SELECT max(rowid)
 			FROM Vote;
 			""")
 			id_v = curseur.fetchone()[0]

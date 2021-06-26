@@ -10,6 +10,9 @@ procs.append(sb.Popen(
 	["python", "router.py"]
 ))
 procs.append(sb.Popen(
+	["python", "server.py"]
+))
+procs.append(sb.Popen(
 	["python", "_connection_centre_vote.py"]
 ))
 procs.append(sb.Popen(

@@ -34,15 +34,17 @@ def listener():
 
 def fetch():
 	tmp = None
+	with open("__conn_register__.dat", "wb") as f:
+		pass
 	while tmp is None:
 		time.sleep(2)
 		try:
 			with open("__conn_register__.dat", "rb") as f:
 				tmp = f.read() or None
-			with open("__conn_register__.dat", "wb") as f:
-				pass
 		except Exception:
 			continue
+	with open("__conn_register__.dat", "wb") as f:
+		pass
 
 	return json.loads(tmp)["body"]
 
