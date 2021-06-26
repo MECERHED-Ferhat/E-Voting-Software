@@ -22,27 +22,21 @@ import sys
 
 #Function to Recieve files from client side
 def ReciveFileFromClient(Filename,conn):
-
-    #Recieve data and write them to files 
-    file = open(Filename, "wb") 
-    RecvData = conn.recv(1024)
-    while RecvData:
-        file.write(RecvData)
-        RecvData = conn.recv(1024)
-    # Close the file opened at server side once copy is completed
-    file.close()
+    res = {
+        "src": constants.REGISTER,
+        "dest": constants.USER_APP,
+        "body": Filename.name,
+        "to_string": description
+    }
+    sender(res)
 
 #Function to send files to server using sockets 
-def SendFileToServer(client_socket,Filename) :  
-
-    # Sending "Filename" to Server 
-    file = open(Filename, "rb")
-
-    SendData = file.read(1024)
-    while SendData:
-        #Now send the content of "Filename" to server
-        client_socket.send(SendData)
-        SendData = file.read(1024)    
+def SendFileToServer(Filename) :
+    # Sending "Filename" to Server
+    with open(fetch(), "rb") as f1:
+        with open(Filename, "wb") as f2:
+            for i in f1:
+                f2.write(i)
 
 
 """    
@@ -92,29 +86,10 @@ if __name__ == '__main__':
 
 
 
-    
-#====================================== Initiating the Socket connection with the user    =============================================#
-    #Get the hostname
-    host = socket.gethostname()
-    port = 6000  # initiate port no above 1024
-
-    #Get instance
-    server_socket = socket.socket()  
-    #The bind() function takes tuple as argument
-    server_socket.bind((host, port))  # bind host address and port together
-
-    #Configure how many client the server can listen simultaneously
-    server_socket.listen(2)
-    print("[*] Waiting for connection")
-    time.sleep(5)
-
-    #Accept connection from Client
-    conn, address = server_socket.accept()  # accept new connection
-    print("Connection from: " + str(address))
 
 #================================================= Recieve file from Client Side ======================================================#
 
-    ReciveFileFromClient(Filename,conn)
+    ReciveFileFromClient(Filename)
 
     time.sleep(5)
 
@@ -126,12 +101,12 @@ if __name__ == '__main__':
 
 
     #Recieve the file encrypted 
-    ReciveFileFromClient(EncBlindFile,conn)
+    ReciveFileFromClient(EncBlindFile)
     print("EncBlindFile Recieved \n")
     time.sleep(3)
 
     #Recieve the Blind file
-    ReciveFileFromClient(RecBlindFile,conn)
+    ReciveFileFromClient(RecBlindFile)
     print("BlindFile Recieved \n")
     time.sleep(3)
 
@@ -190,7 +165,7 @@ if __name__ == '__main__':
 
     # TODO: INSERT HERE ROUTING CODE TO SEND THE FILE 'SENDINGFILE' AND 'BLINDFILE'
 
-    SendFileToServer(client_socket,SendingFile)
+    SendFileToServer(SendingFile, "Sending to Register")
     time.sleep(3)
  
 

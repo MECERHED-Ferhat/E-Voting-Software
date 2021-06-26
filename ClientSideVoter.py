@@ -19,28 +19,25 @@ import zlib
 import time
 
 #Function to send files to server using sockets 
-def SendFileToServer(client_socket,Filename) :  
+def SendFileToServer(Filename,description) :  
 
-	# Sending "Filename" to Server 
-	file = open(Filename, "rb")
+	res = {
+		"src": constants.USER_APP,
+		"dest": constants.SERVER,
+		"body": Filename.name,
+		"to_string": description
+	}
 
-	SendData = file.read(1024)
-	while SendData:
-		#Now send the content of "Filename" to server
-		client_socket.send(SendData)
-		SendData = file.read(1024) 
+	sender(res)
 
 #Function to Recieve files from client side
-def ReciveFileFromClient(Filename,conn):
+def ReciveFileFromClient(Filename):
 
-	#Recieve data and write them to files 
-	file = open(Filename, "wb") 
-	RecvData = conn.recv(1024)
-	while RecvData:
-		file.write(RecvData)
-		RecvData = conn.recv(1024)
-	# Close the file opened at server side once copy is completed
-	file.close()
+    # Sending "Filename" to Server
+    with open(fetch(), "rb") as f1:
+        with open(Filename, "wb") as f2:
+            for i in f1:
+                f2.write(i)
 
 """
 	message = input("insert message:")  # take input
@@ -157,7 +154,7 @@ if __name__ == '__main__':
 
 	with open(encrypted_Vote, 'rb') as m:
 		message = m.read()
-	
+
 	#======================= Blinding the encrypted vote =========================#
 
 	VoteBlinded  = PublicKey.blind(message, r)
@@ -193,10 +190,10 @@ if __name__ == '__main__':
 			#INSERT HERE ROUTING CODE TO SEND THE FILE 'SENDINGFILE' AND 'BLINDFILE'
 
 	
-	SendFileToServer(client_socket,SendingFile)
+	SendFileToServer(SendingFile, "Sending to Server 1")
 	print('file 1 sent')
 	time.sleep(3)
-	SendFileToServer(client_socket,Blindfile)
+	SendFileToServer(Blindfile, "Sending to Server 2")
 	print('File 2 sent')
 	time.sleep(10)    
 	
@@ -204,7 +201,7 @@ if __name__ == '__main__':
 
 	
 	#Recieve the file encrypted 
-	ReciveFileFromClient(EncBlindFile,conn)
+	ReciveFileFromClient(EncBlindFile)
 	time.sleep(3)
 	
 
