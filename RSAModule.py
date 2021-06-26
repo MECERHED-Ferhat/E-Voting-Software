@@ -154,68 +154,68 @@ def Generate_Token():
 
 #================ Key Generation ==================#
 
-
-# Generate_new_key_pair() # run if you don't already have a key pair
-generate_new_key_pair()
-
-
-#======== Different paths to files ================#
+if __name__ == "__main__":
+    # Generate_new_key_pair() # run if you don't already have a key pair
+    generate_new_key_pair()
 
 
-#Path to the Public and Private key
-private_key = Path('PrivateKey.pem')
-public_key = Path('PublicKey.pem')
-#Path to the file we're willing to encrypt
-unencrypted_file = Path('Vote.txt')
-#Path to the signature  
-sigfile = Path("signature")
-#path to the encrypted file
-encrypted_file = unencrypted_file.with_suffix('.dat')
+    #======== Different paths to files ================#
 
 
-
-#================== Encryption ====================#
-
-
-#Encryption function
-encrypted_msg = FileEncryption(unencrypted_file.read_bytes(), public_key.read_bytes())
-#Write Result of encryption to file 
-with open(encrypted_file, 'w') as f:
-    f.write(encrypted_msg.decode())
+    #Path to the Public and Private key
+    private_key = Path('PrivateKey.pem')
+    public_key = Path('PublicKey.pem')
+    #Path to the file we're willing to encrypt
+    unencrypted_file = Path('Vote.json')
+    #Path to the signature  
+    sigfile = Path("signature")
+    #path to the encrypted file
+    encrypted_file = unencrypted_file.with_suffix('.dat')
 
 
 
-#================== Decryption ====================#
+    #================== Encryption ====================#
 
 
-#Read the content of the encrypted file
-with open(encrypted_file, 'r') as e:
-    encrypted_msg = e.read()
-
-#Decrypt the file 
-decrypted_msg = FileDecryption(encrypted_msg.encode(), private_key.read_bytes())
-
-#Write the obtained plain text to file 
-with open('Plaintext.txt', 'w') as f:
-    f.write(decrypted_msg.decode())
+    #Encryption function
+    encrypted_msg = FileEncryption(unencrypted_file.read_bytes(), public_key.read_bytes())
+    #Write Result of encryption to file 
+    with open(encrypted_file, 'w') as f:
+        f.write(encrypted_msg.decode())
 
 
-#================== Signing a message ====================#
 
-#signing a file
-Sig=Sign_File(private_key, unencrypted_file )
-
-#Write Result of sginature to file 
-with open(sigfile, 'w') as f:
-    f.write(Sig.decode())
+    #================== Decryption ====================#
 
 
-#================== Verifing a sginature ====================#
+    #Read the content of the encrypted file
+    with open(encrypted_file, 'r') as e:
+        encrypted_msg = e.read()
+
+    #Decrypt the file 
+    decrypted_msg = FileDecryption(encrypted_msg.encode(), private_key.read_bytes())
+
+    #Write the obtained plain text to file 
+    with open('Plaintext.txt', 'w') as f:
+        f.write(decrypted_msg.decode())
 
 
-Verify_File(public_key,unencrypted_file ,sigfile)
+    #================== Signing a message ====================#
+
+    #signing a file
+    Sig=Sign_File(private_key, unencrypted_file )
+
+    #Write Result of sginature to file 
+    with open(sigfile, 'w') as f:
+        f.write(Sig.decode())
 
 
-#================= Generating a Token =======================#
+    #================== Verifing a sginature ====================#
 
-#token = Generate_Token()
+
+    Verify_File(public_key,unencrypted_file ,sigfile)
+
+
+    #================= Generating a Token =======================#
+
+    #token = Generate_Token()

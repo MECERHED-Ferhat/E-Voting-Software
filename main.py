@@ -201,7 +201,7 @@ def sumbit_form():
 			"candidats" : [i["id"] for i in new_list]
 		}
 	}
-	with open("__vote_user_app__.dat", "wb") as f:
+	with open("Vote.json", "wb") as f:
 		f.write(json.dumps(output).encode("utf-8"))
 		sb.Popen(
 			["python", "ClientSideVoter.py"]

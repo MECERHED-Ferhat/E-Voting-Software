@@ -1,6 +1,22 @@
-import sys, os
+import sys, os, json
 import constants
 from _connection_user_app import sender, fetch
+from cryptography.hazmat.primitives import serialization, hashes
+from cryptography.hazmat.primitives.asymmetric import padding
+from cryptography.hazmat.backends import default_backend
+from cryptography.exceptions import InvalidSignature
+from Crypto.Cipher import PKCS1_OAEP
+from Crypto.PublicKey import RSA
+from random import SystemRandom
+from nanoid import generate # requirment pip install nanoid
+from pathlib import Path
+import RSAModule
+import hashlib
+import base64
+import socket
+import AES #this is our customized module 
+import zlib
+import time
 
 #Function to send files to server using sockets 
 def SendFileToServer(client_socket,Filename) :  
@@ -82,22 +98,6 @@ def auth(electeur):
 
 
 if __name__ == '__main__':
-	from cryptography.hazmat.primitives import serialization, hashes
-	from cryptography.hazmat.primitives.asymmetric import padding
-	from cryptography.hazmat.backends import default_backend
-	from cryptography.exceptions import InvalidSignature
-	from Crypto.Cipher import PKCS1_OAEP
-	from Crypto.PublicKey import RSA
-	from random import SystemRandom
-	from nanoid import generate # requirment pip install nanoid
-	from pathlib import Path
-	import RSAModule
-	import hashlib
-	import base64
-	import socket
-	import AES #this is our customized module 
-	import zlib
-	import time
 	#client_program()
 
 
@@ -112,7 +112,7 @@ if __name__ == '__main__':
 	private_key = Path('PrivateKey.pem')
 	public_key = Path('PublicKey.pem')
 	#Path to the file we're willing to encrypt
-	unencrypted_Vote = Path('Vote.txt')
+	unencrypted_Vote = Path('Vote.json')
 	#Path to the signature  
 	sigfile = Path("Signature")
 	#Path to blided file
@@ -139,24 +139,9 @@ if __name__ == '__main__':
 
 
 
-	
-#====================================== Initiating the Socket connection with the server    ============================================#
-	
-	# Since both codes are running on the same pc
-	host = socket.gethostname()  
-	port = 6000  # socket server port number
-
-	# instantiate the connection to the server
-	client_socket = socket.socket()  
-	client_socket.connect((host, port))  # connect to the server
 
 #========================================= User Authentication with registration =======================================================#
-	
-	with open("__vote_user_app__.dat", "rb") as f:
-		user_info = json.loads(f)
-	with open("__vote_user_app__.dat", "wb") as f:
-		pass
-	print(user_info)
+
 
 #========================================== Prepare vote before sending it to register =================================================#
 
@@ -172,8 +157,9 @@ if __name__ == '__main__':
 
 	with open(encrypted_Vote, 'rb') as m:
 		message = m.read()
-
+	
 	#======================= Blinding the encrypted vote =========================#
+
 	VoteBlinded  = PublicKey.blind(message, r)
 
 	with open(Blindfile, 'w') as outfile:#wb means write in the binary mode

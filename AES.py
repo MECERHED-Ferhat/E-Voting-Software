@@ -4,6 +4,7 @@ from Crypto.Hash import SHA256
 from Crypto.PublicKey import RSA
 from Crypto.Hash import SHA256
 from random import SystemRandom
+from pathlib import Path
 import random
 import array
 import os, sys
@@ -131,7 +132,7 @@ def Main():
 
 		filename = input("File to encrypt: ")
 		password = GeneratePassword()
-		AESEncryption(getKey(password), filename)
+		AESEncryption(getKey(password), Path(filename))
 
 
 		# Generating a random number R the blinding factory
@@ -148,7 +149,7 @@ def Main():
 	elif choice == 'D':
 		filename = input("File to decrypt: ")
 		password = input("Password: ")
-		AESDecryption(getKey(password),filename)
+		AESDecryption(getKey(password), Path(filename))
 		print("Done.")
 
 	else:
@@ -156,4 +157,4 @@ def Main():
 	
 	
 
-#Main()
+# Main()
