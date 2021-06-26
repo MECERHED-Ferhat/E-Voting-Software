@@ -46,7 +46,9 @@ def save_vote(vote):
 			"src": constants.SERVER,
 			"dest": constants.USER_APP,
 			"body": token,
-			"to_string": "Envoi Token"
+			"to_string": """Send token to client
+{token} RSA Encryption
+"""
 		})
 		
 	except sqlite3.Error as er:
@@ -56,8 +58,36 @@ def save_vote(vote):
 		exc_type, exc_value, exc_tb = sys.exc_info()
 		print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
-	connexion.close()
+	
 
+def check_vote(token):
+	try:
+		sql_query = """
+			SELECT count(*) FROM Vote WHERE token = ?;
+		"""
+		curseur.execute(sql_query, (token,))
+
+		sender({
+			"src": constants.SERVER,
+			"dest": constants.USER_APP,
+			"body": {
+				"ok": (curseur.fetchone[0] != 0)
+			},
+			"to_string": """
+Verification response to client :
+
+{RESULT} RSA Encryption
+"""
+		})
+
+
+	except sqlite3.Error as er:
+		print('SQLite error: %s' % (' '.join(er.args)))
+		print("Exception class is: ", er.__class__)
+		print('SQLite traceback: ')
+		exc_type, exc_value, exc_tb = sys.exc_info()
+		print(traceback.format_exception(exc_type, exc_value, exc_tb))
+	connexion.close()
 
 def main_thread():
 	while True:
@@ -65,6 +95,9 @@ def main_thread():
 
 		if "request" in res and res["request"] == "FINAL_VOTE":
 			save_vote(res["data"])
+
+		if "request" in res and res["request"] == "CHECK_VOTE":
+			check_vote(res["data"])
 
 
 if __name__ == "__main__":

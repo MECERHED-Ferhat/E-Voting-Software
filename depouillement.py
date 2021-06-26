@@ -3,11 +3,14 @@ from tkinter import ttk
 import random
 from decimal import Decimal
 import sqlite3
+from user_app import send_key
+from _connection_server import fetch
 
 FIELD_SIZE = 10**5
 shares = []
 secret = 1234
 
+send_key()
 
 def resultat():
 	gv_container.place_forget()
@@ -19,10 +22,16 @@ def resultat():
 	parti_6_container.place_forget()
 	button_container.place_forget()
 
+
 	########################################################
 	#connect to database and create views
 	con = sqlite3.connect("database.db")
 	c = con.cursor()
+	try:
+		c.execute(""" DROP VIEW V """)
+		c.execute(""" DROP VIEW C """)
+	except:
+		pass
 	#view for number of votes per party
 	c.execute("""
 			create view if not exists V(parti, nb_vote) as SELECT nom, count(id_partie) as result
@@ -35,7 +44,7 @@ def resultat():
 
 	#view for number of votes per candidat per party // number of votes = sum of "classement" --> smallest value = 1st position...
 	c.execute("""
-		create view if not exists C(id_partie, nom_candidat, classement_sum) as SELECT id_partie, prenom, sum(vote_candidat.classement)
+		create view if not exists C(id_partie, nom_candidat, prenom_candidat, classement_sum) as SELECT id_partie, nom, prenom, sum(vote_candidat.classement)
 						 								FROM candidat, vote_candidat
 						 								WHERE candidat.id = vote_candidat.id_candidat						 								
 						 								GROUP BY id_partie, id_candidat		 								
@@ -121,7 +130,7 @@ def resultat():
 		pos = 1
 		stri = ""
 		for k in q:
-			stri = stri + "Position {0}: {1}\n".format(pos,k[1])
+			stri = stri + "Position {0}: {1} {2} \n".format(pos,k[1], k[2])
 			pos += 1
 
 		try:

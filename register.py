@@ -46,7 +46,22 @@ def get_data():
 		"src" : constants.REGISTER,
 		"dest" : constants.USER_APP,
 		"body" : db_data,
-		"to_string" : "Database informations"
+		"to_string" : """Extraction de la liste des parties et leurs candidats
+depuis la base de donnée centrale.
+
+[
+  "partie" : {
+    "id" : ID_PARTIE,
+    "nom" : NOM_PARTIE,
+    ...
+    "candidats" : [
+      "id" : ID_CANDIDAT,
+      "nom" : NOM_CANDIDAT,
+      ...
+    ]
+  },
+]
+"""
 	}
 
 
@@ -84,7 +99,14 @@ def auth(res):
 		"src" : constants.REGISTER,
 		"dest" : constants.USER_APP,
 		"body" : auth,
-		"to_string" : "Authentication check"
+		"to_string" : """Authentication result :
+
+{
+  {
+    {Vote} AES_Encryption
+  } Blind_Signature
+} RSA_Encryption
+"""
 	})
 
 

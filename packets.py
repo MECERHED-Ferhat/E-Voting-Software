@@ -49,7 +49,7 @@ label_1_2 = tk.Label(
 	first_container,
 	textvariable=source,
 	width=WIDTH_LABEL_2,
-	anchor="w"
+	anchor="w",
 )
 label_1_2.pack(side=tk.RIGHT, fill=tk.X)
 label_1_2.config(font=('arial', SIZE_LABEL_2))
@@ -93,9 +93,10 @@ label_3_2 = tk.Label(
 	right_container,
 	textvariable=content,
 	width=WIDTH_LABEL_2,
-	anchor="w"
+	anchor="w",
+	justify=tk.LEFT
 )
-label_3_2.pack(fill=tk.Y)
+label_3_2.pack(side=tk.LEFT)
 label_3_2.config(font=('arial', SIZE_LABEL_2))
 
 
@@ -125,9 +126,9 @@ def clear():
 
 tree = ttk.Treeview(left_container, column=("column1", "column2"), show='headings', height=10)
 tree.heading("#1", text="Source")
-tree.column("#1", width=175, anchor="c")
+tree.column("#1", width=225, anchor="c")
 tree.heading("#2", text="Destination")
-tree.column("#2", width=175, anchor="c")
+tree.column("#2", width=225, anchor="c")
 tree.pack(side=tk.TOP, fill=tk.X, padx=20, pady=20)
 tree.bind('<ButtonRelease-1>', selectItem)
 

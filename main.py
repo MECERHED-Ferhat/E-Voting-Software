@@ -3,7 +3,7 @@ import os, json
 import subprocess as sb
 from tkinter import ttk
 from PIL import Image, ImageTk, ImageDraw
-from user_app import get_data, send_vote, send_vote_server
+from user_app import get_data, send_vote, send_vote_server, check_vote
 import socket
 from time import sleep
 import hashlib
@@ -207,7 +207,14 @@ def sumbit_form():
 
 	if (reponse["ok"]):
 		token = send_vote_server()
-		print(token)
+		
+		"""
+		reponse = check_vote(token)
+		if (response["ok"]):
+			print("Counted")
+		else:
+			print("Not counted")
+		"""
 
 
 # # # # # # # # # # # # # # # # # # # #
@@ -256,7 +263,7 @@ def fill_list(index):
 		tmp.pack(side=tk.LEFT)
 		tmp_image.close()
 
-		tk.Label(deputes[-1], width=50, text=i["nom"]).pack(side=tk.LEFT, expand=True)
+		tk.Label(deputes[-1], width=50, text=i["nom"] + " " + i["prenom"]).pack(side=tk.LEFT, expand=True)
 
 		entries.append(tk.Entry(deputes[-1], width=5))
 		entries[-1].pack(side=tk.LEFT, expand=True, padx=15)

@@ -8,13 +8,28 @@ def get_data():
 		"body" : {
 			"request" : "GET_DATA"
 		},
-		"to_string" : "Demande des données"
+		"to_string" : """Demande des listes des parties et candidats
+de la base de donnée centrale."""
 	}
 	sender(res)
 	data = fetch()
 	return data
 
+def check_vote(token):
+	sender({
+		"src": constants.USER_APP,
+		"dest": constants.SERVER,
+		"body": {
+			"request": "CHECK_VOTE",
+			"data": token
+		},
+		"to_string": """Check counted vote :
 
+{token} RSA Encryption
+"""
+	})
+
+	return fetch()
 
 def send_vote():
 	"""
@@ -37,7 +52,15 @@ def send_vote():
 			"request": "VERIFY_AUTH",
 			"data": data
 		},
-		"to_string": "Send data"
+		"to_string": """Request Authentication :
+
+{
+  Authentication,
+  {
+    {Vote} AES Encryption
+  } Blind
+} RSA Encryption
+"""
 		})
 	return fetch()
 
@@ -51,10 +74,35 @@ def send_vote_server():
 			"request": "FINAL_VOTE",
 			"data": data
 		},
-		"to_string": "Envoi au serveur"
+		"to_string": """Send unblinded signed vote :
+
+{
+  {
+    {vote} AES Encryption
+  } Signature
+} RSA Encryption
+"""
 	})
 
 	return fetch()
+
+def send_key():
+	sender({
+		"src": constants.USER_APP,
+		"dest": constants.SERVER,
+		"body": {
+			"request": "SEND_KEY",
+			"data": None
+		},
+		"to_string": """
+Send AES keys and token to decrypt votes : 
+
+{
+	token,
+	AES_key
+} RSA Encryption
+"""
+	})
 
 if __name__ == "__main__":
 	pass
