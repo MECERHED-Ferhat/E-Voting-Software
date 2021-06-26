@@ -22,7 +22,7 @@ def listener():
 			with conn:
 				while True:
 					try:
-						data = conn.recv(4096)
+						data = conn.recv(8192)
 					except Exception:
 						continue
 					if not data:

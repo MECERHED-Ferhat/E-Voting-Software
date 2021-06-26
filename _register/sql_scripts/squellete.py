@@ -1,6 +1,6 @@
 import sqlite3, sys, traceback
 
-connexion = sqlite3.connect("../database.db")
+connexion = sqlite3.connect("../../database.db")
 curseur = connexion.cursor()
 
 try:

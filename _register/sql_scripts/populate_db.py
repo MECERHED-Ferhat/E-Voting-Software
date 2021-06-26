@@ -1,6 +1,6 @@
 import sqlite3, sys, traceback, json, random
 
-connexion = sqlite3.connect("../database.db")
+connexion = sqlite3.connect("../../database.db")
 curseur = connexion.cursor()
 
 with open("data.json", "r") as f:

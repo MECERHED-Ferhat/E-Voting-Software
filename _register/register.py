@@ -99,6 +99,7 @@ def main_thread():
 		if "request" in res and res["request"] == "AUTH":
 			sender(auth(res))
 
+
 if __name__ == "__main__":
 	threading.Thread(target=main_thread, daemon=True).start()
 

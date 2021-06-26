@@ -119,6 +119,8 @@ def selectItem(item):
 
 def clear():
 	fill_packet("", "", "")
+	for i in tree.get_children():
+		tree.delete(i)
 
 
 tree = ttk.Treeview(left_container, column=("column1", "column2"), show='headings', height=10)

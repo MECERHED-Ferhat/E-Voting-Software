@@ -8,7 +8,7 @@ import constants
 # Write here
 #
 # sender({
-#		"src" : constants.XXXX,
+#		"src" : constants.SERVER,
 #		"dest" : constants.<your_destination>, # Check constants.py
 #		"body" : <your data>,
 #		"to_string" : <your representation>

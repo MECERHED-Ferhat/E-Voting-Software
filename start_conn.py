@@ -8,7 +8,7 @@ router_path = os.path.join(root_path, "_routage")
 register_path = os.path.join(root_path, "_register")
 user_app_path = os.path.join(root_path, "_user_app")
 centre_vote_path = os.path.join(root_path, "_centre_vote")
-xxxx_path = os.path.join(root_path, "_xxxx")
+SERVER_path = os.path.join(root_path, "_server")
 
 procs.append(sb.Popen(
 	["python", os.path.join(router_path, "router.py"), root_path],
@@ -31,8 +31,8 @@ procs.append(sb.Popen(
 	cwd=centre_vote_path
 ))
 procs.append(sb.Popen(
-	["python", os.path.join(xxxx_path, "_connection.py"), root_path],
-	cwd=xxxx_path
+	["python", os.path.join(SERVER_path, "_connection.py"), root_path],
+	cwd=SERVER_path
 ))
 
 input("Exit? (Enter)\n")

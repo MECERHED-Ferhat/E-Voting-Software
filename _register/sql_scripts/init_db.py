@@ -1,6 +1,6 @@
 import sqlite3, sys, traceback
 
-connexion = sqlite3.connect("../database.db")
+connexion = sqlite3.connect("../../database.db")
 curseur = connexion.cursor()
 
 try:
@@ -40,10 +40,10 @@ try:
 	);
 
 	CREATE TABLE IF NOT EXISTS Vote (
-		id 						AUTO INCREMENT INT,
+		id 						INT PRIMARY KEY,
 		id_partie 		INT,
+		token 				VARCHAR(255),
 
-		CONSTRAINT PK_Vote PRIMARY KEY (id),
 		CONSTRAINT FK_Vote_for_Partie
 			FOREIGN KEY (id_partie)
 			REFERENCES Partie(id)

@@ -1,49 +1,62 @@
 import sqlite3, sys, traceback
-import json
+import json, random
+from nanoid import generate
 
-connexion = sqlite3.connect("../database.db")
+connexion = sqlite3.connect("../../database.db")
 curseur = connexion.cursor()
 
 ################################
 #get vote
 
-with open("test.json", "r") as f:
-	vote = json.load(f)
-
-vote_parti = vote["partie"]
-vote_candidats = vote["candidats"]
-
-
-##################################
-#get vote_id
-
-#soit: vote_id : auto increment --> current vote == max(id)? 
-
-# c.execute("""
-# 	SELECT max(id)
-# 	FROM vote
-# 	""")
-# id_v = int(c.fetchone()[0])
-# print(id_v)
-
-#soit: vote_id : num_vote envoyé avec l'ack 
-#recevoir vote --> generer num_vote --> envoyer num_vote avec ack et remplir table vote
-vote_id = 2
-
-###################################################################
-#recuperer id parti
+votes = []
 
 try:
-	curseur.execute("""
-	SELECT id
-	FROM partie
-	WHERE nom = ?
- 	""", (vote_parti,))
+	sql_query = """
+	SELECT *
+	FROM Electeur;
+	"""
+	curseur.execute(sql_query)
+	list_electeur = curseur.fetchall()
 
-	id_p = curseur.fetchone()[0]
+	sql_query = """
+	SELECT *
+	FROM Partie;
+	"""
+	curseur.execute(sql_query)
+	list_partie = curseur.fetchall()
+
+	sql_query = """
+	SELECT *
+	FROM Candidat;
+	"""
+	curseur.execute(sql_query)
+	list_candidat = curseur.fetchall()
+
+	for i in range(len(list_partie)):
+		if "candidats" not in list_partie[i]:
+			list_partie[i] = list(list_partie[i])
+			list_partie[i].append(list())
+		for j in list_candidat:
+			if j[4] == list_partie[i][0]:
+				list_partie[i][-1].append(j[0])
 
 
-	connexion.commit()
+	for elec in list_electeur:
+		partie = random.choice(list_partie)
+		tmp_list = list(partie[-1])
+		random.shuffle(tmp_list)
+
+		votes.append({
+			"partie": partie[1],
+			"candidats": tmp_list
+			})
+
+	sql_query = """
+	DELETE FROM Vote;
+	DELETE FROM Vote_Candidat;
+	"""
+	curseur.executescript(sql_query)
+
 except sqlite3.Error as er:
 	print('SQLite error: %s' % (' '.join(er.args)))
 	print("Exception class is: ", er.__class__)
@@ -51,53 +64,27 @@ except sqlite3.Error as er:
 	exc_type, exc_value, exc_tb = sys.exc_info()
 	print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
-#remplir table vote
-try:
-	curseur.execute("""
-	INSERT INTO vote(id, id_partie) VALUES(?,?)
-	 """, (vote_id ,int(id_p),))
-	
-	
-	connexion.commit()
-except sqlite3.Error as er:
-	print('SQLite error: %s' % (' '.join(er.args)))
-	print("Exception class is: ", er.__class__)
-	print('SQLite traceback: ')
-	exc_type, exc_value, exc_tb = sys.exc_info()
-	print(traceback.format_exception(exc_type, exc_value, exc_tb))
+for vote in votes:
+	vote_parti = vote["partie"]
+	vote_candidats = vote["candidats"]
 
-
-###################################################################
-#remplir table vote_candidat
-
-
-for i in vote_candidats:
-	candidat = i["nom"]
-	classement = vote_candidats.index(i) + 1
-
+	###################################################################
+	#recuperer id parti
 
 	try:
 		curseur.execute("""
 		SELECT id
-		FROM candidat
-		WHERE prenom = ?
-	 	""", (candidat,))
-		id_c =  curseur.fetchone()[0]
-		
-		connexion.commit()
-	except sqlite3.Error as er:
-		print('SQLite error: %s' % (' '.join(er.args)))
-		print("Exception class is: ", er.__class__)
-		print('SQLite traceback: ')
-		exc_type, exc_value, exc_tb = sys.exc_info()
-		print(traceback.format_exception(exc_type, exc_value, exc_tb))
+		FROM partie
+		WHERE nom = ?
+	 	""", (vote_parti,))
 
+		id_p = curseur.fetchone()[0]
 
-
-	try:
+		#remplir table vote
 		curseur.execute("""
-		INSERT INTO vote_candidat (id_vote, id_candidat, classement) VALUES(?,?,?)
-	 	""", (vote_id, int(id_c), classement,))
+		INSERT INTO Vote(id_partie,token) VALUES(?,?)
+		 """, (int(id_p),generate(size=8)))
+		
 		
 		connexion.commit()
 	except sqlite3.Error as er:
@@ -107,5 +94,32 @@ for i in vote_candidats:
 		exc_type, exc_value, exc_tb = sys.exc_info()
 		print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
+
+	###################################################################
+	#remplir table vote_candidat
+
+	for candidat in vote_candidats:
+		classement = vote_candidats.index(candidat) + 1
+
+		try:
+			curseur.execute("""
+			SELECT max(id)
+			FROM Vote;
+			""")
+			id_v = curseur.fetchone()[0]
+			print(id_v)
+
+
+			curseur.execute("""
+			INSERT INTO vote_candidat (id_vote, id_candidat, classement) VALUES(?,?,?)
+		 	""", (id_v, candidat, classement,))
+			
+			connexion.commit()
+		except sqlite3.Error as er:
+			print('SQLite error: %s' % (' '.join(er.args)))
+			print("Exception class is: ", er.__class__)
+			print('SQLite traceback: ')
+			exc_type, exc_value, exc_tb = sys.exc_info()
+			print(traceback.format_exception(exc_type, exc_value, exc_tb))
 
 connexion.close()

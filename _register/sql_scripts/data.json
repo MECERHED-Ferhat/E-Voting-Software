@@ -2,6 +2,118 @@
 	"electeur" : [
 		{
 			"id" : "",
+			"nom" : "Missaoui",
+			"prenom" : "Massil",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Halit",
+			"prenom" : "Felicia",
+			"wilaya" : "Tizi ouzou",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Moungad",
+			"prenom" : "Massil",
+			"wilaya" : "Tizi ouzou",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Bourenane",
+			"prenom" : "Rania",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Chiboub",
+			"prenom" : "Raouf Nassim",
+			"wilaya" : "Blida",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Mazari",
+			"prenom" : "Sonia",
+			"wilaya" : "Tizi ouzou",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Boudjemahi",
+			"prenom" : "Meriem",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Ouaked",
+			"prenom" : "Cylia",
+			"wilaya" : "Tizi ouzou",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Zehar",
+			"prenom" : "Abdelhafid",
+			"wilaya" : "Sétif",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Messaoui",
+			"prenom" : "Manel",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Sebaoune",
+			"prenom" : "Ahmed Said",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Aissi",
+			"prenom" : "Moh Salim",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Boutasta",
+			"prenom" : "Sourour",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
+			"nom" : "Abdelaziz",
+			"prenom" : "Moh Badis",
+			"wilaya" : "Alger",
+			"H_PIN" : "",
+			"eligible" : ""
+		},
+		{
+			"id" : "",
 			"nom" : "Djabri",
 			"prenom" : "Abdelkader",
 			"wilaya" : "Alger",
@@ -12,7 +124,7 @@
 			"id" : "",
 			"nom" : "Benabdallah",
 			"prenom" : "Amel",
-			"wilaya" : "Alger",
+			"wilaya" : "Adrar",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -20,7 +132,7 @@
 			"id" : "",
 			"nom" : "Guessoum",
 			"prenom" : "Fateh",
-			"wilaya" : "Alger",
+			"wilaya" : "Tindouf",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
@@ -28,15 +140,15 @@
 			"id" : "",
 			"nom" : "Mecerhed",
 			"prenom" : "Ferhat",
-			"wilaya" : "Alger",
+			"wilaya" : "Tipaza",
 			"H_PIN" : "",
 			"eligible" : ""
 		},
 		{
 			"id" : "",
-			"nom" : "Wlid",
-			"prenom" : "Houmti",
-			"wilaya" : "Alger",
+			"nom" : "Khedach",
+			"prenom" : "Nesrine",
+			"wilaya" : "Oran",
 			"H_PIN" : "",
 			"eligible" : "FALSE"
 		}
@@ -49,24 +161,24 @@
 		"wilaya" : "Alger",
 		"candidats" : [
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Adam",
-			"image" : "candidats_pictures/adam.jpg"
+			"nom" : "Abdellaoui",
+			"prenom" : "Abdelkader",
+			"image" : "candidats_pictures/abdellaoui.jpg"
 			},
 			{
-			"nom" : "Madame",
-			"prenom" : "Dame",
-			"image" : "candidats_pictures/madame.jpg"
+			"nom" : "Guemmama",
+			"prenom" : "Mahmoud",
+			"image" : "candidats_pictures/guemmama.jpg"
 			},
 			{
-			"nom" : "Mademoiselle",
-			"prenom" : "Moiselle",
-			"image" : "candidats_pictures/moiselle.jpg"
+			"nom" : "Kihal",
+			"prenom" : "Noureddine",
+			"image" : "candidats_pictures/kihal.jpg"
 			},
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif"
+			"nom" : "Tliba",
+			"prenom" : "Bahaeddine",
+			"image" : "candidats_pictures/tliba.jpg"
 			}
 		]
 		},
@@ -76,27 +188,51 @@
 		"wilaya" : "Alger",
 		"candidats" : [
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif"
+			"nom" : "Derkouche",
+			"prenom" : "Belkheir",
+			"image" : "candidats_pictures/derkouche.jpg"
+			},
+			{
+			"nom" : "Mihoubi",
+			"prenom" : "Kourrak",
+			"image" : "candidats_pictures/mihoubi.jpg"
+			},
+			{
+			"nom" : "Safi",
+			"prenom" : "Larabi",
+			"image" : "candidats_pictures/safi.jpg"
+			},
+			{
+			"nom" : "Slim",
+			"prenom" : "Amira",
+			"image" : "candidats_pictures/slim.jpg"
 			}
 		]
 		},
 		{
-		"nom" : "HMS",
-		"image" : "parties_pictures/hms.png",
-		"wilaya" : "Alger",
-		"candidats" : []
-		},
-		{
-		"nom" : "MOUSTAKBAL",
-		"image" : "parties_pictures/moustakbal.png",
+		"nom" : "FFS",
+		"image" : "parties_pictures/ffs.jpg",
 		"wilaya" : "Alger",
 		"candidats" : [
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif"
+			"nom" : "Bouchachi",
+			"prenom" : "Mostefa",
+			"image" : "candidats_pictures/bouchachi.jpg"
+			},
+			{
+			"nom" : "Baloul",
+			"prenom" : "Karim",
+			"image" : "candidats_pictures/baloul.jpg"
+			},
+			{
+			"nom" : "Tazarart",
+			"prenom" : "Khaled",
+			"image" : "candidats_pictures/tazarart.jpg"
+			},
+			{
+			"nom" : "Taiati",
+			"prenom" : "Mziani Hayat",
+			"image" : "candidats_pictures/taiati.jpg"
 			}
 		]
 		},
@@ -106,31 +242,78 @@
 		"wilaya" : "Alger",
 		"candidats" : [
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Adam",
-			"image" : "candidats_pictures/adam.jpg"
+			"nom" : "Bendoukha",
+			"prenom" : "Benamar",
+			"image" : "candidats_pictures/bendoukha.jpg"
 			},
 			{
-			"nom" : "Monsieur",
-			"prenom" : "Nick",
-			"image" : "candidats_pictures/Nick.gif"
+			"nom" : "Djebane",
+			"prenom" : "Mustapha",
+			"image" : "candidats_pictures/djebane.jpg"
+			},
+			{
+			"nom" : "Sihamdi",
+			"prenom" : "Khatir",
+			"image" : "candidats_pictures/sihamdi.jpg"
 			}
 		]
 		},
 		{
-		"nom" : "REA",
-		"image" : "parties_pictures/rea.png",
+		"nom" : "PT",
+		"image" : "parties_pictures/pt.jpg",
 		"wilaya" : "Alger",
 		"candidats" : [
 			{
-			"nom" : "Madame",
-			"prenom" : "dame",
-			"image" : "candidats_pictures/madame.jpg"
+			"nom" : "Chabane",
+			"prenom" : "Soraya",
+			"image" : "candidats_pictures/chabane.jpg"
 			},
 			{
-			"nom" : "Demoiselle",
-			"prenom" : "Moiselle",
-			"image" : "candidats_pictures/moiselle.jpg"
+			"nom" : "Djoudi",
+			"prenom" : "Djelloul",
+			"image" : "candidats_pictures/djoudi.jpg"
+			},
+			{
+			"nom" : "Hanoune",
+			"prenom" : "Louisa",
+			"image" : "candidats_pictures/hanoune.jpg"
+			},
+			{
+			"nom" : "Zaier",
+			"prenom" : "Said",
+			"image" : "candidats_pictures/zaier.jpg"
+			}
+		]
+		},
+		{
+		"nom" : "Independants",
+		"image" : "parties_pictures/independant.gif",
+		"wilaya" : "Alger",
+		"candidats" : [
+			{
+			"nom" : "Ababsa",
+			"prenom" : "Nasser",
+			"image" : "candidats_pictures/ababsa.jpg"
+			},
+			{
+			"nom" : "Bouzad",
+			"prenom" : "Hacene",
+			"image" : "candidats_pictures/bouzad.jpg"
+			},
+			{
+			"nom" : "Hariz",
+			"prenom" : "Nacer",
+			"image" : "candidats_pictures/hariz.jpg"
+			},
+			{
+			"nom" : "Rami",
+			"prenom" : "Merzak",
+			"image" : "candidats_pictures/rami.jpg"
+			},
+			{
+			"nom" : "Saci",
+			"prenom" : "Mohamed",
+			"image" : "candidats_pictures/saci.jpg"
 			}
 		]
 		}

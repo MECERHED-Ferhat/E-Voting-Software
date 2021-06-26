@@ -16,13 +16,3 @@ import constants
 #
 # data = fetch()
 # # # # # # # # # # # #
-
-
-sender({
-		"src" : constants.CENTRE_VOTE,
-		"dest" : constants.CENTRE_VOTE, # Check constants.py
-		"body" : 0,
-		"to_string" : "Hello world"
-})
-
-data = fetch()

@@ -30,8 +30,8 @@ def auth(electeur):
 		"elec" : { 
 			"nom" : "Djabri",
 			"prenom" : "Abdelkader",
-			"id" : "9531AD056C3A785538",
-			"hpin" : "2A0B98A180"
+			"id" : "4B9CDBC3DB254A4D63",
+			"hpin" : "533758A816"
 		}
 	}
 	"""

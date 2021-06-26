@@ -28,4 +28,6 @@ Make sure you install all the requirements using:
 > pip install -r requirements.txt
 
 
-# Brouillon
+# Liens
+Doc : <https://docs.google.com/document/d/1QcwD6RRBURPnMx4qaf3bsYlL7o3pe02Rt5auAexiXr8/edit?fbclid=IwAR1v27Bx0m-5mCo1XxuQGmEvhkO3aAvjGOsswNi1fGgP0Pfons1-CozGd28>
+PowerPoint : 

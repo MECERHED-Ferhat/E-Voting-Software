@@ -4,8 +4,8 @@ sys.path.append(main_dir)
 import constants
 
 
-N_PORT = constants.XXXX_PORT
-N_PORT_REC = constants.XXXX_PORT_REC
+N_PORT = constants.SERVER_PORT
+N_PORT_REC = constants.SERVER_PORT_REC
 
 
 def listener():
@@ -17,12 +17,12 @@ def listener():
 		while True:
 			print("Listening... on ", N_PORT_REC)
 			conn, addr = s.accept()
-			print("xxxx-listener connected")
+			print("Server-listener connected")
 
 			with conn:
 				while True:
 					try:
-						data = conn.recv(4096)
+						data = conn.recv(8192)
 					except Exception:
 						continue
 					if not data:
@@ -59,7 +59,7 @@ def sender(data):
 				pass
 			else:
 				break;
-		print("xxxx-sender connected")
+		print("Server-sender connected")
 
 		try:
 			s.send(json.dumps(data, indent=2).encode("utf-8"))

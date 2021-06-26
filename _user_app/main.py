@@ -106,7 +106,6 @@ def request_auth():
 	el = electeur_info()
 	authentication = auth(el)
 	a = authentication["ok"]
-	a = True 									# <--------------------	
 	if a == True:
 		print("access granted")
 		valider()
@@ -234,8 +233,8 @@ def fill_list(index):
 
 		tmp = tk.Canvas(
 			deputes[-1],
-			width=60,
-			height=60
+			width=99,
+			height=128
 		)
 		tmp_image = Image.open(i["image"])
 		deputes_images.append(ImageTk.PhotoImage(tmp_image))

@@ -7,7 +7,7 @@ BUFFER = {
 	constants.USER_APP: None,
 	constants.REGISTER: None,
 	constants.CENTRE_VOTE: None,
-	constants.XXXX: None
+	constants.SERVER: None
 }
 
 def listener(nport):
@@ -24,12 +24,12 @@ def listener(nport):
 			with conn:
 				while True:
 					try:
-						data = conn.recv(4096)
+						data = conn.recv(8192)
 					except Exception:
 						break
 					if not data:
 						break
-
+						
 					tmp = json.loads(data.decode("utf-8"))
 
 					with open("__conn_tmp__.dat", "ab") as f:
@@ -63,13 +63,13 @@ def sender(nport, dest):
 
 if __name__ == "__main__":
 
-	for i in (constants.USER_APP_PORT, constants.REGISTER_PORT, constants.XXXX_PORT, constants.CENTRE_VOTE_PORT):
+	for i in (constants.USER_APP_PORT, constants.REGISTER_PORT, constants.SERVER_PORT, constants.CENTRE_VOTE_PORT):
 		threading.Thread(target=listener, args=(i,), daemon=True).start()
 
 	threading.Thread(target=sender, args=(constants.USER_APP_PORT_REC, constants.USER_APP), daemon=True).start()
 	threading.Thread(target=sender, args=(constants.REGISTER_PORT_REC, constants.REGISTER), daemon=True).start()
 	threading.Thread(target=sender, args=(constants.CENTRE_VOTE_PORT_REC, constants.CENTRE_VOTE), daemon=True).start()
-	threading.Thread(target=sender, args=(constants.XXXX_PORT_REC, constants.XXXX), daemon=True).start()
+	threading.Thread(target=sender, args=(constants.SERVER_PORT_REC, constants.SERVER), daemon=True).start()
 
 	while True:
 		time.sleep(20)
