@@ -55,10 +55,12 @@ def send_vote():
 		"to_string": """Request Authentication :
 
 {
-  Authentication,
   {
-    {Vote} AES Encryption
-  } Blind
+    Authentication,
+    {
+      {Vote} AES Encryption
+    } Blind
+  } Signature
 } RSA Encryption
 """
 		})
