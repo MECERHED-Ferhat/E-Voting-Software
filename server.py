@@ -61,6 +61,8 @@ def save_vote(vote):
 	
 
 def check_vote(token):
+	connexion = sqlite3.connect("database.db")
+	curseur = connexion.cursor()
 	try:
 		sql_query = """
 			SELECT count(*) FROM Vote WHERE token = ?;
@@ -71,7 +73,7 @@ def check_vote(token):
 			"src": constants.SERVER,
 			"dest": constants.USER_APP,
 			"body": {
-				"ok": (curseur.fetchone[0] != 0)
+				"ok": (curseur.fetchone()[0] != 0)
 			},
 			"to_string": """
 Verification response to client :

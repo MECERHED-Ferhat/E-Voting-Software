@@ -98,8 +98,8 @@ def send_key():
 Send AES keys and token to decrypt votes : 
 
 {
-	token,
-	AES_key
+  token,
+  AES_key
 } RSA Encryption
 """
 	})

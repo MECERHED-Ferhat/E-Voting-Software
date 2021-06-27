@@ -17,10 +17,11 @@ ELECTEUR = dict()
 
 root = tk.Tk()
 root.title("E-Nvoti")
-root.state('zoomed')
+#root.state('zoomed')
 root.resizable(width=0, height=0)
-#root.geometry('975x575')
+root.geometry('1000x700')
 #root.configure(bg="grey")
+
 
 selected_party = tk.IntVar()
 selected_party.set(-1)
@@ -157,8 +158,9 @@ codePIN_e.pack()
 
 
 valider_b = tk.Button(container_log, width=19, font=('times',12,'bold','italic'), relief="groove", text="Valider", command=request_auth)
-valider_b.pack(side=tk.BOTTOM, pady= 20)
+valider_b.pack(pady= 20)
 #lambda:[electeur_info(), request_auth()]
+
 
 # # # # # # # # # # # # # # # # # # # # # # # # 
 # Submit section
@@ -207,16 +209,47 @@ def sumbit_form():
 
 	if (reponse["ok"]):
 		token = send_vote_server()
-		
-		"""
-		reponse = check_vote(token)
-		if (response["ok"]):
-			print("Counted")
-		else:
-			print("Not counted")
-		"""
+# # # # # # # # # # # # # # # # # # # #
+# verifier vote
+
+def chk():
+	token = return_entry(tkn)
+	response = check_vote(token)
+
+	if (response["ok"]):		
+		var.set("Your vote has been counted")
+
+	else:		
+		var.set("Your vote has not been counted")
+
+def verifier():
+	global tkn, resp, var
+	container_log.pack_forget()
 
 
+
+	jeton_l = tk.Label(container_2, text="Token")
+	jeton_l.pack()
+	jeton_l.config(font=('times',18))
+
+	tkn = tk.StringVar()
+	jeton_e = tk.Entry(container_2, textvariable=tkn, width=30)
+	jeton_e.pack(pady= 20)
+
+	jeton_b = tk.Button(container_2, width=19, font=('times',12,'bold','italic'), relief="groove", text="Check Vote", command=chk)
+	jeton_b.pack(pady=20)
+
+	var = tk.StringVar()
+	resp = tk.Label(container_2, textvariable=var)
+	resp.config(font=('times',20,'bold'))
+	resp.pack()
+
+
+verif_container = tk.Frame(container_log)
+verif_container.pack(side=tk.BOTTOM)
+
+verifier = tk.Button(verif_container, width=19, font=('times',12,'bold','italic'), relief="groove", text="Verifier mon vote", command=verifier)
+verifier.pack(side=tk.BOTTOM, pady= 20)
 # # # # # # # # # # # # # # # # # # # #
 # Candidat section
 
